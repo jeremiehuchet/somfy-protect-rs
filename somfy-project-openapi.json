@@ -271,7 +271,7 @@
           "device"
         ],
         "summary": "Start installation of a device",
-        "operationId": "deviceInstallationStart",
+        "operationId": "deviceHomekitInstallationStart",
         "parameters": [
           {
             "name": "site_id",
@@ -873,6 +873,22 @@
         ],
         "summary": "List of mandatory updates",
         "operationId": "deviceUpdatesGet",
+        "parameters": [
+          {
+            "name": "site_id",
+            "in": "path",
+            "description": "Site identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "device_id",
+            "in": "path",
+            "description": "Device identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation"
@@ -881,7 +897,7 @@
         "security": [
           {
             "myfox_auth": [
-              "hkp.full"
+              "api.full"
             ]
           }
         ]
@@ -1105,6 +1121,7 @@
             "description": "Successful operation"
           },
           "404": {
+            "description": "Not found",
             "schema": {
               "$ref": "#/definitions/ApiException"
             }
@@ -1125,7 +1142,23 @@
           "device"
         ],
         "summary": "List of mandatory updates",
-        "operationId": "deviceUpdatesGet",
+        "operationId": "deviceHomekitUpdatesGet",
+        "parameters": [
+          {
+            "name": "site_id",
+            "in": "path",
+            "description": "Site identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "device_id",
+            "in": "path",
+            "description": "Device identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation"
@@ -2736,7 +2769,7 @@
           "userSite"
         ],
         "summary": "Retrieves the list of users of the site",
-        "operationId": "siteScenarioGetList",
+        "operationId": "siteUsersGetList",
         "parameters": [
           {
             "name": "site_id",
@@ -2769,7 +2802,7 @@
         ]
       }
     },
-    "/site/{siteId}/user/{userId}/code": {
+    "/site/{site_id}/user/{user_id}/code": {
       "put": {
         "tags": [
           "userSite"
@@ -2796,7 +2829,9 @@
             "in": "body",
             "description": "The individual code",
             "required": true,
-            "type": "string"
+            "schema": {
+              
+            }
           }
         ],
         "responses": {
@@ -2854,7 +2889,7 @@
           "userSite"
         ],
         "summary": "Get the link between a site and an user",
-        "operationId": "siteUserDelete",
+        "operationId": "siteUserGet",
         "parameters": [
           {
             "name": "site_id",
@@ -3694,7 +3729,7 @@
             "name": "user_id",
             "in": "path",
             "description": "User identifier. Current logged user if not provided",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],
@@ -3718,7 +3753,7 @@
             "name": "user_id",
             "in": "path",
             "description": "User identifier. Current logged user if not provided",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -3883,7 +3918,7 @@
             "in": "body",
             "description": "Password to check.",
             "required": true,
-            "schema": "string"
+            "schema": {}
           },
           {
             "name": "access_token",
@@ -5969,7 +6004,6 @@
       }
     },
     "SiteDiagnosis": {
-      "required": [],
       "properties": {
         "main_status": {
           "type": "string",
@@ -6003,7 +6037,6 @@
       }
     },
     "SiteDiagnosisItem": {
-      "required": [],
       "properties": {
         "device_id": {
           "type": "string"
