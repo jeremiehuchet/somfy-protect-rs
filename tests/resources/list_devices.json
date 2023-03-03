@@ -1,0 +1,392 @@
+{
+  "object": "list",
+  "items": [
+    {
+      "object": "DeviceOutput",
+      "device_id": "c5441e32bc6aa634a8cf9b7fd1dd4ab3",
+      "box_id": null,
+      "site_id": "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT",
+      "provider_id": null,
+      "version": "3.2.0",
+      "mac": "C4EEC521FB50",
+      "device_definition": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "LinkPremium",
+        "label": "Somfy SHA 4G",
+        "type": "box"
+      },
+      "status": {
+        "last_online_at": "2023-03-01T14:38:52.000000Z",
+        "last_offline_at": "2023-03-01T14:38:03.000000Z",
+        "battery_level": 97,
+        "wifi_level": -47,
+        "wifi_level_percent": 63,
+        "ble_level": null,
+        "fsk_level": null,
+        "power_mode": "current",
+        "power_state": 1,
+        "last_status_at": null,
+        "gsm_antenna_in_use": "internal"
+      },
+      "master": true,
+      "into_subscription": false,
+      "update_available": false,
+      "diagnosis": {
+        "is_everything_ok": false,
+        "problems": [
+          "low_battery"
+        ]
+      },
+      "is_full_gsm": false,
+      "label": "Link Advanced",
+      "room_id": "68c5300a-4319-4031-b77b-900dfaf47493",
+      "settings": {
+        "object": "DeviceSettings",
+        "global": {
+          "wifi_ssid": "Wifi_SSID",
+          "auto_protect_enabled": false,
+          "led_enabled": true
+        },
+        "disarmed": null,
+        "partial": null,
+        "armed": null
+      }
+    },
+    {
+      "object": "DeviceOutput",
+      "device_id": "DztQPcqPWAXfxq2BoR1VF8BtXI5F7zlu",
+      "box_id": null,
+      "site_id": "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT",
+      "provider_id": null,
+      "version": "4.0.0",
+      "mac": null,
+      "device_definition": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_tag",
+        "label": "IntelliTag",
+        "type": "tag"
+      },
+      "status": {
+        "recalibration_required": false,
+        "recalibrateable": true,
+        "cover_present": true,
+        "battery_level": 100,
+        "rlink_state": 0,
+        "rlink_quality": -64,
+        "rlink_quality_percent": 75,
+        "device_lost": false,
+        "last_status_at": "2023-03-02T19:59:58.000000Z"
+      },
+      "master": false,
+      "into_subscription": false,
+      "update_available": false,
+      "diagnosis": {
+        "is_everything_ok": true,
+        "problems": []
+      },
+      "label": "Window Room A",
+      "room_id": "954b2d87-4732-4c80-b3ea-637b2225ab8f",
+      "settings": {
+        "object": "DeviceSettings",
+        "global": {
+          "sensitivity": 7,
+          "support_type": "window",
+          "night_mode_enabled": true,
+          "prealarm_enabled": true
+        },
+        "disarmed": null,
+        "partial": null,
+        "armed": null
+      }
+    },
+    {
+      "object": "DeviceOutput",
+      "device_id": "HDkKd0vS7yeFSfwPIJFLc2HWNiv9muRu",
+      "box_id": null,
+      "site_id": "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT",
+      "provider_id": null,
+      "version": "4.0.0",
+      "mac": null,
+      "device_definition": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_tag",
+        "label": "IntelliTag",
+        "type": "tag"
+      },
+      "status": {
+        "recalibration_required": false,
+        "recalibrateable": false,
+        "cover_present": true,
+        "battery_level": 100,
+        "rlink_state": 0,
+        "rlink_quality": -58,
+        "rlink_quality_percent": 100,
+        "device_lost": false,
+        "last_status_at": "2023-03-02T19:52:35.000000Z"
+      },
+      "master": false,
+      "into_subscription": false,
+      "update_available": false,
+      "diagnosis": {
+        "is_everything_ok": true,
+        "problems": []
+      },
+      "label": "Window Room B",
+      "room_id": "26c1f9cb-d0b8-4942-8441-818dc019ad28",
+      "settings": {
+        "object": "DeviceSettings",
+        "global": {
+          "sensitivity": 7,
+          "support_type": "slidewindow",
+          "night_mode_enabled": true,
+          "prealarm_enabled": true
+        },
+        "disarmed": null,
+        "partial": null,
+        "armed": null
+      }
+    },
+    {
+      "object": "DeviceOutput",
+      "device_id": "2Xd3hHicDKb9NcfJpAJlqBb0QmbDIKG9",
+      "box_id": null,
+      "site_id": "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT",
+      "provider_id": null,
+      "version": "245.0.0",
+      "mac": null,
+      "device_definition": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_remote",
+        "label": "Key Fob",
+        "type": "remote"
+      },
+      "status": {
+        "device_lost": false,
+        "battery_level": 25,
+        "battery_level_state": "ok",
+        "rlink_state": 0,
+        "rlink_quality": 4,
+        "last_status_at": null,
+        "last_check_in_state": "2023-03-02T19:28:07.000000Z",
+        "last_check_out_state": "2023-03-02T07:11:27.000000Z",
+        "keep_alive": 0
+      },
+      "master": false,
+      "into_subscription": false,
+      "update_available": false,
+      "diagnosis": {
+        "is_everything_ok": true,
+        "problems": []
+      },
+      "label": "Joakim Key Fob",
+      "room_id": "68c5300a-4319-4031-b77b-900dfaf47493",
+      "settings": {
+        "object": "DeviceSettings",
+        "global": {
+          "user_id": "CFuPo4AQVMYGP7oYKclBcPxsCTrFK4qd",
+          "enabled": true
+        },
+        "disarmed": null,
+        "partial": null,
+        "armed": null
+      }
+    },
+    {
+      "object": "DeviceOutput",
+      "device_id": "GKZsZfvCZRj4KVEQ0rQrLK3Qq4hS2ubS",
+      "box_id": null,
+      "site_id": "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT",
+      "provider_id": null,
+      "version": "2.3.0",
+      "mac": null,
+      "device_definition": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_pir",
+        "label": "Myfox Security Infrared Sensor",
+        "type": "pir"
+      },
+      "status": {
+        "battery_level": 100,
+        "battery_low": false,
+        "rlink_quality": -52,
+        "rlink_quality_percent": 100,
+        "temperature": 9.3,
+        "temperatureAt": "2023-03-02T21:11:48.000000Z",
+        "device_lost": false,
+        "last_status_at": "2023-03-02T21:11:48.000000Z"
+      },
+      "master": false,
+      "into_subscription": false,
+      "update_available": false,
+      "diagnosis": {
+        "is_everything_ok": true,
+        "problems": []
+      },
+      "label": "Garagen Bewegungsmelder",
+      "room_id": "b072a5fc-970d-48ec-a200-12f89e0aa9a9",
+      "settings": {
+        "object": "DeviceSettings",
+        "global": {
+          "sensitivity_level": "medium",
+          "light_enabled": true,
+          "auto_protect_enabled": true,
+          "night_mode_enabled": true,
+          "prealarm_enabled": true
+        },
+        "disarmed": {
+          "auto_protect_enabled": true
+        },
+        "partial": {
+          "auto_protect_enabled": true
+        },
+        "armed": {
+          "auto_protect_enabled": true
+        }
+      }
+    },
+    {
+      "object": "DeviceOutput",
+      "device_id": "BayzpyoOyvZYMQwqsnmmu3FBHHz9cuLX",
+      "box_id": null,
+      "site_id": "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT",
+      "provider_id": null,
+      "version": "1.2.0",
+      "mac": null,
+      "device_definition": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "sp_keypad",
+        "label": "Somfy SHA Keypad",
+        "type": "keypad"
+      },
+      "status": {
+        "battery_level": 100,
+        "battery_low": false,
+        "rlink_quality": -39,
+        "rlink_quality_percent": 100,
+        "device_lost": false,
+        "last_status_at": "2023-03-02T21:03:14.000000Z"
+      },
+      "master": false,
+      "into_subscription": false,
+      "update_available": false,
+      "diagnosis": {
+        "is_everything_ok": true,
+        "problems": []
+      },
+      "label": "Input Keypad",
+      "room_id": "7485a652-b963-4938-ac83-9525990d65d3",
+      "settings": {
+        "object": "DeviceSettings",
+        "global": {
+          "auto_protect_enabled": false,
+          "code_required_to_arm": true,
+          "sound_enabled": false
+        },
+        "disarmed": null,
+        "partial": null,
+        "armed": null
+      }
+    },
+    {
+      "object": "DeviceOutput",
+      "device_id": "MCzYWIDNuWNn5qfdUK5U2HiM0iDXQzMA",
+      "box_id": null,
+      "site_id": "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT",
+      "provider_id": null,
+      "version": "8.9.0",
+      "mac": null,
+      "device_definition": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_siren",
+        "label": "Myfox Security Siren",
+        "type": "siren"
+      },
+      "status": {
+        "battery_level": 100,
+        "rlink_state": 0,
+        "rlink_quality": -56,
+        "rlink_quality_percent": 100,
+        "device_lost": false,
+        "last_status_at": "2023-03-02T19:47:33.000000Z"
+      },
+      "master": false,
+      "into_subscription": false,
+      "update_available": false,
+      "diagnosis": {
+        "is_everything_ok": true,
+        "problems": []
+      },
+      "label": "Innensirene",
+      "room_id": "954b2d87-4732-4c80-b3ea-637b2225ab8f",
+      "settings": {
+        "object": "DeviceSettings",
+        "global": {
+          "light_enabled": false,
+          "sound_enabled": true,
+          "auto_protect_enabled": true
+        },
+        "disarmed": {
+          "auto_protect_enabled": true
+        },
+        "partial": {
+          "auto_protect_enabled": true
+        },
+        "armed": {
+          "auto_protect_enabled": true
+        }
+      }
+    },
+    {
+      "object": "DeviceOutput",
+      "device_id": "BStcq4XsKYBOdwspLS9TG8B9cZzEmCFO",
+      "box_id": null,
+      "site_id": "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT",
+      "provider_id": null,
+      "version": "1.8.0",
+      "mac": null,
+      "device_definition": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_outdoor_siren",
+        "label": "Myfox Security Outdoor Siren",
+        "type": "siren"
+      },
+      "status": {
+        "battery_level": 100,
+        "rlink_quality": -62,
+        "rlink_quality_percent": 75,
+        "temperature": 4.3,
+        "temperatureAt": "2023-03-02T21:05:49.000000Z",
+        "device_lost": false,
+        "last_status_at": "2023-03-02T17:05:37.000000Z",
+        "mounted_at": "2022-07-29T16:34:15.000000Z"
+      },
+      "master": false,
+      "into_subscription": false,
+      "update_available": false,
+      "diagnosis": {
+        "is_everything_ok": true,
+        "problems": []
+      },
+      "label": "Außensirene",
+      "room_id": "b072a5fc-970d-48ec-a200-12f89e0aa9a9",
+      "settings": {
+        "object": "DeviceSettings",
+        "global": {
+          "light_enabled": true,
+          "sound_enabled": false,
+          "auto_protect_enabled": true,
+          "thresholdAcc": 10
+        },
+        "disarmed": {
+          "auto_protect_enabled": true
+        },
+        "partial": {
+          "auto_protect_enabled": true
+        },
+        "armed": {
+          "auto_protect_enabled": true
+        }
+      }
+    }
+  ]
+}
