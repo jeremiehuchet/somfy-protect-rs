@@ -1201,7 +1201,7 @@
             "type": "string",
             "enum": [
               "en_US",
-              "fr_FR",
+              "de_DE",
               "de_DE",
               "es_ES",
               "it_IT",
@@ -2829,9 +2829,7 @@
             "in": "body",
             "description": "The individual code",
             "required": true,
-            "schema": {
-              
-            }
+            "schema": {}
           }
         ],
         "responses": {
@@ -4060,7 +4058,14 @@
         },
         "installed": {
           "description": "The number of installed devices",
-          "type": "integer"
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "max": {
           "description": "The maximum of installable devices",
@@ -4106,7 +4111,15 @@
             "mss_camera_myfox_1",
             "mss_aio_1_plus",
             "mss_aio_1",
-            "sp_indoor_cam1"
+            "mss_pir",
+            "mss_extender",
+            "sp_indoor_cam1",
+            "sp_keypad",
+            "sp_smoke_detector",
+            "sp_outdoor_cam1",
+            "RTSRemote",
+            "LinkPremium",
+            "IoWindowCovering"
           ]
         },
         "label": {
@@ -4121,7 +4134,16 @@
             "camera",
             "remote",
             "siren",
-            "tag"
+            "tag",
+            "keypad",
+            "pir",
+            "extender",
+            "sp_risk_detector",
+            "outdoor_camera",
+            "indoor_camera",
+            "rts_remote",
+            "ioWindowCovering",
+            "allinone"
           ]
         }
       }
@@ -4345,10 +4367,7 @@
     },
     "DeviceSettings": {
       "required": [
-        "global",
-        "disarmed",
-        "partial",
-        "armed"
+        "global"
       ],
       "properties": {
         "global": {
@@ -4760,7 +4779,7 @@
         },
         "battery_level_state": {
           "description": "Remote battery level state (Remote).",
-          "type": "integer"
+          "type": "string"
         },
         "keep_alive": {
           "description": "Remote keep alive (Remote).",
@@ -5846,7 +5865,7 @@
         "country": {
           "description": "Country code of the site location (uppercase two-letter ISO-3166-1 alpha-2 code).",
           "type": "string",
-          "example": "FR"
+          "example": "DE"
         },
         "crosstreet": {
           "description": "Cross street details.",
@@ -5917,10 +5936,7 @@
     },
     "SiteAlarm": {
       "required": [
-        "status",
-        "alarm_type",
-        "start_at",
-        "end_at"
+        "status"
       ],
       "properties": {
         "status": {
@@ -6017,8 +6033,8 @@
           "type": "string"
         },
         "main_message_vars": {
-          "type": "array",
-          "items": {
+          "type": "object",
+          "additionalProperties": {
             "type": "string"
           }
         },
@@ -6397,7 +6413,7 @@
         "country": {
           "description": "Country code of the site location (uppercase two-letter ISO-3166-1 alpha-2 code).",
           "type": "string",
-          "example": "FR"
+          "example": "DE"
         },
         "crosstreet": {
           "description": "Cross street details.",
@@ -6641,7 +6657,7 @@
         "country": {
           "description": "Country code of the site location (uppercase two-letter ISO-3166-1 alpha-2 code).",
           "type": "string",
-          "example": "FR"
+          "example": "DE"
         },
         "crosstreet": {
           "description": "Cross street details.",
@@ -7060,7 +7076,7 @@
         "country": {
           "description": "Country code of the site location (uppercase two-letter ISO-3166-1 alpha-2 code).",
           "type": "string",
-          "example": "FR"
+          "example": "DE"
         },
         "crosstreet": {
           "description": "Cross street details.",
@@ -7307,7 +7323,7 @@
         "country": {
           "description": "Country code of the site location (uppercase two-letter ISO-3166-1 alpha-2 code).",
           "type": "string",
-          "example": "FR"
+          "example": "DE"
         },
         "crosstreet": {
           "description": "Cross street details.",
