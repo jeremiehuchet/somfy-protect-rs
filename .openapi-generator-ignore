@@ -1,6 +1,0 @@
-src/lib.rs
-.gitignore
-.travis.yml
-Cargo.toml
-git_push.sh
-README.md

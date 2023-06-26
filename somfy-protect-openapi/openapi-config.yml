@@ -1,0 +1,5 @@
+additionalProperties:
+  packageName: somfy-protect-openapi
+  packageVersion: 0.1.0
+  useSingleRequestParameter: true
+  supportMiddleware: true
