@@ -1,17 +1,13 @@
-use httpmock::{
-    Method::{GET, POST},
-    MockServer,
-};
-use somfy_protect_client::client::SomfyProtectClient;
+use httpmock::{Method::GET, MockServer};
+use somfy_protect_client::client::{SomfyProtectClient, SomfyProtectClientBuilder};
 
 fn somfy_protect_client_for(server: &MockServer) -> SomfyProtectClient {
-    SomfyProtectClient::new_with_base_url(
-        format!("{}/api", server.base_url()),
-        format!("{}/oauth", server.base_url()),
-        //"http://localhost:8889".to_string(),
-        "client_id!".to_string(),
-        "client_Secret!".to_string(),
-    )
+    SomfyProtectClientBuilder::default()
+        .with_auth_base_url(format!("{}/oauth", server.base_url()))
+        .with_api_base_url(format!("{}/api", server.base_url()))
+        .with_client_credentials("client_id!".to_string(), "client_Secret!".to_string())
+        .with_user_credentials("username".to_string(), "password".to_string())
+        .build()
 }
 
 #[tokio::test]
