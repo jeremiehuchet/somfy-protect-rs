@@ -13,12 +13,9 @@ use somfy_protect_openapi::{
     },
     models::{DeviceCompatibility, DeviceOutput, SiteOutput},
 };
-use std::{
-    io::ErrorKind,
-    sync::{Arc, RwLock},
-};
+use std::sync::Arc;
 
-use crate::auth::{SomfyAuthMiddleware, SomfyAuthMiddlewareBuilder};
+use crate::auth::SomfyAuthMiddlewareBuilder;
 
 const API_BASE_URL: &str = "https://api.myfox.io/v3";
 const AUTH_BASE_URL: &str = "https://accounts.somfy.com/oauth/oauth/v2";
@@ -138,13 +135,93 @@ impl SomfyProtectClient {
     }
 }
 
-#[derive(Debug)]
-pub struct LoginError {
-    msg: String,
-}
+#[cfg(test)]
+mod tests {
+    use httpmock::{Method::GET, MockServer};
+    use somfy_protect_openapi::apis::configuration::Configuration;
 
-impl LoginError {
-    fn new(msg: String) -> Self {
-        LoginError { msg }
+    use super::SomfyProtectClient;
+
+    fn somfy_protect_client(server: &MockServer) -> SomfyProtectClient {
+        SomfyProtectClient {
+            configuration: Configuration {
+                base_path: format!("{}/api", server.base_url()),
+                ..Default::default()
+            },
+        }
+    }
+
+    #[tokio::test]
+    async fn can_list_sites() {
+        let server = MockServer::start();
+        let list_sites_mock = server.mock(|when, then| {
+            when.method(GET).path("/api/site");
+            then.status(200)
+                .body_from_file("tests/resources/list_sites.json");
+        });
+
+        let client = somfy_protect_client(&server);
+
+        let sites = client
+            .list_sites()
+            .await
+            .expect("a successful site listing");
+
+        list_sites_mock.assert();
+        assert_eq!(sites.len(), 1, "one site is fetched");
+        assert_eq!(
+            sites.get(0).unwrap().site_id,
+            "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT".to_string()
+        );
+        assert_eq!(sites.get(0).unwrap().name, Some("Hausalarm".to_string()));
+    }
+
+    #[tokio::test]
+    async fn can_list_devices() {
+        let server = MockServer::start();
+        let list_devices_mock = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/site/Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT/device");
+            then.status(200)
+                .body_from_file("tests/resources/list_devices.json");
+        });
+
+        let client = somfy_protect_client(&server);
+
+        let devices = client
+            .list_devices("Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT".to_string())
+            .await
+            .expect("a successful device listing");
+
+        list_devices_mock.assert();
+        assert_eq!(devices.len(), 8, "expect 8 devices");
+        for device in devices {
+            assert_eq!(
+                device.site_id,
+                "Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT".to_string(),
+                "expect consistent site_id"
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn can_list_compatible_devices() {
+        let server = MockServer::start();
+        let list_compatible_devices_mock = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/site/Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT/device-compatible");
+            then.status(200)
+                .body_from_file("tests/resources/list_compatible_devices.json");
+        });
+
+        let client = somfy_protect_client(&server);
+
+        let devices = client
+            .list_compatible_devices("Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT".to_string())
+            .await
+            .expect("a successful compatible device listing");
+
+        list_compatible_devices_mock.assert();
+        assert_eq!(devices.len(), 15, "expect 15 device types");
     }
 }

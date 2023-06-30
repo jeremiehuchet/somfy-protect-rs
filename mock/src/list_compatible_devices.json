@@ -1,0 +1,170 @@
+{
+  "object": "list",
+  "items": [
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_extender",
+        "label": "Myfox Security Extender",
+        "type": "extender"
+      },
+      "installed": 0,
+      "max": 2
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_siren",
+        "label": "Myfox Security Siren",
+        "type": "siren"
+      },
+      "installed": 1,
+      "max": 2
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "RTSRemote",
+        "label": "RTS Remote",
+        "type": "rts_remote"
+      },
+      "installed": 7,
+      "max": 25
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_tag",
+        "label": "IntelliTag",
+        "type": "tag"
+      },
+      "installed": 55,
+      "max": 74
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "sp_smoke_detector",
+        "label": "Somfy Smoke Detector",
+        "type": "sp_risk_detector"
+      },
+      "installed": 8,
+      "max": 10
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_outdoor_siren",
+        "label": "Myfox Security Outdoor Siren",
+        "type": "siren"
+      },
+      "installed": 1,
+      "max": 2
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "sp_keypad",
+        "label": "Somfy SHA Keypad",
+        "type": "keypad"
+      },
+      "installed": 9,
+      "max": 10
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_remote",
+        "label": "Key Fob",
+        "type": "remote"
+      },
+      "installed": 23,
+      "max": 74
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "IoWindowCovering",
+        "label": "IO Window Covering",
+        "type": "ioWindowCovering"
+      },
+      "installed": 11,
+      "max": 25
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_pir",
+        "label": "Myfox Security Infrared Sensor",
+        "type": "pir"
+      },
+      "installed": "33",
+      "max": 74
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_aio_1",
+        "label": "Somfy One",
+        "type": "allinone"
+      },
+      "installed": 5,
+      "max": 10
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "sp_outdoor_cam1",
+        "label": "Somfy Outdoor Camera",
+        "type": "outdoor_camera"
+      },
+      "installed": 4,
+      "max": 10
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_camera",
+        "label": "Myfox Security Camera",
+        "type": "camera"
+      },
+      "installed": 3,
+      "max": 10
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "sp_indoor_cam1",
+        "label": "Somfy Indoor Camera",
+        "type": "indoor_camera"
+      },
+      "installed": 2,
+      "max": 10
+    },
+    {
+      "object": "DeviceCompatibility",
+      "device": {
+        "object": "DeviceDefinition",
+        "device_definition_id": "mss_aio_1_plus",
+        "label": "Somfy One Plus",
+        "type": "allinone"
+      },
+      "installed": 1,
+      "max": 10
+    }
+  ]
+}
