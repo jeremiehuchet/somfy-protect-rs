@@ -8,6 +8,8 @@ edition = "2021"
 
 [dependencies]
 async-trait = "^0.1"
+chrono = "^0.4"
+futures-util = { version = "^0.3", default-features = false, features = ["sink", "std"] }
 log = "^0.4"
 oauth2 = "^4.3"
 prometheus = { version = "^0.13" }
@@ -19,6 +21,7 @@ serde_derive = "^1.0"
 serde_json = "^1.0"
 somfy-protect-openapi = { path = "../somfy-protect-openapi" }
 task-local-extensions = "^0.1"
+tokio-tungstenite = "^0.19"
 url = "^2.2"
 
 [dev-dependencies]

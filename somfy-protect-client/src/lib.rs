@@ -1,10 +1,3 @@
-#[macro_use]
-extern crate serde_derive;
-
-extern crate reqwest;
-extern crate serde;
-extern crate serde_json;
-extern crate url;
-
 mod auth;
 pub mod client;
+pub mod websocket;
