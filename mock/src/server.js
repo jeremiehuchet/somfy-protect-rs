@@ -1,4 +1,5 @@
 const express = require('express')
+const enableExpressWs = require('express-ws')
 const bodyParser = require('body-parser')
 const fs = require('fs')
 
@@ -6,18 +7,21 @@ const app = express()
 const port = 3000
 const global = {
   exchangePasswordCount: 0,
-  refreshTokenCount: 0
+  refreshTokenCount: 0,
+  wsMessagesReceived: [],
+  wsMessagesToSend: []
 }
 
-const expressWs = require('express-ws')(app);
+enableExpressWs(app);
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.use((req, res, next) => {
   console.info(`${Date.now()}: ${req.method} ${req.url}`)
-  if (req.path.indexOf('/api' ) === 0) {
+  if (req.path.indexOf('/api') === 0) {
     const authozization = req.header('Authorization')
-    if (! authozization || authozization.indexOf('Bearer valid') !== 0) {
+    if (!authozization || authozization.indexOf('Bearer valid') !== 0) {
       res.body = {
         "data": [],
         "message": "error.unauthorized",
@@ -26,7 +30,7 @@ app.use((req, res, next) => {
       res.sendStatus(401)
       return
     }
-  } 
+  }
   next()
 })
 
@@ -36,6 +40,15 @@ app.get('/mock/exchange-password-count', (req, res) => {
 
 app.get('/mock/refresh-token-count', (req, res) => {
   res.send(`${global.refreshTokenCount}`)
+})
+
+app.get('/mock/ws-messages-received', (req, res) => {
+  res.send(JSON.stringify(global.wsMessagesReceived))
+})
+
+app.put('/mock/ws-messages-to-send', (req, res) => {
+  global.wsMessagesToSend = req.body
+  res.json(global.wsMessagesToSend)
 })
 
 app.post('/auth/token', (req, res) => {
@@ -86,12 +99,38 @@ app.get('/api/site/:siteId/device-compatible', (req, res) => {
   }
 })
 
-app.ws('/websocket', function(ws, req) {
-  ws.on('message', function(msg) {
-    ws.send(msg);
-  });
-});
+app.ws('/websocket', (ws, req) => {
+
+  ws.on('error', error => {
+    console.info(`/websocket Error(${error})`)
+    global.wsMessagesReceived.push(error)
+  })
+
+  ws.on('message', msg => {
+    console.info(`/websocket Text(${msg})`)
+    global.wsMessagesReceived.push(JSON.parse(msg))
+  })
+
+  ws.on('close', msg => {
+    console.info(`/websocket Close(${msg}`)
+    global.wsMessagesReceived.push(JSON.parse(msg))
+  })
+
+  if (req.query.token === 'valid-token') {
+    console.info('/websocket Connect')
+
+    ws.send(JSON.stringify({
+      key: "websocket.connection.ready"
+    }))
+    global.wsMessagesToSend.forEach(msg => {
+      console.log('sending mocked WS message: ', msg)
+      ws.send(JSON.stringify(msg))
+    })
+  } else {
+    ws.send('websocket.error.token')
+  }
+})
 
 app.listen(port, () => {
-  console.log(`Somfy Protect API mock listening on port ${port}`)
+  console.info(`Somfy Protect API mock listening on port ${port}`)
 })

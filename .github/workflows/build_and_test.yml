@@ -50,4 +50,4 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: fmt
-          args: --package rika-firenet-client --check
+          args: --package somfy-protect-client --check

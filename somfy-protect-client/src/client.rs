@@ -1,6 +1,5 @@
 use reqwest::{redirect::Policy, Client};
-use reqwest_middleware::ClientBuilder;
-use reqwest_prometheus_middleware::PrometheusMiddleware;
+use reqwest_middleware::{ClientBuilder, Middleware};
 use somfy_protect_openapi::{
     apis::{
         configuration::Configuration,
@@ -27,7 +26,7 @@ pub struct SomfyProtectClientBuilder {
     api_base_url: Option<String>,
     client_credentials: Option<(String, String)>,
     user_credentials: Option<(String, String)>,
-    prometheus_middleware: Option<Arc<PrometheusMiddleware>>,
+    reqwest_middleware: Option<Arc<dyn Middleware>>,
 }
 
 impl SomfyProtectClientBuilder {
@@ -51,11 +50,8 @@ impl SomfyProtectClientBuilder {
         self
     }
 
-    pub fn enable_metrics(
-        mut self,
-        reqwest_prometheus_middleware: Arc<PrometheusMiddleware>,
-    ) -> Self {
-        self.prometheus_middleware = Some(reqwest_prometheus_middleware);
+    pub fn enable_metrics(mut self, reqwest_middleware: Arc<dyn Middleware>) -> Self {
+        self.reqwest_middleware = Some(reqwest_middleware);
         self
     }
 
@@ -86,8 +82,8 @@ impl SomfyProtectClientBuilder {
             .with_user_credentials(username, password)
             .build();
         let mut client = ClientBuilder::new(inner_client).with(auth_middleware);
-        if let Some(prometheus_middleware) = self.prometheus_middleware.as_ref() {
-            client = client.with_arc(prometheus_middleware.clone());
+        if let Some(reqwest_middleware) = self.reqwest_middleware.as_ref() {
+            client = client.with_arc(reqwest_middleware.clone());
         }
 
         SomfyProtectClient {
