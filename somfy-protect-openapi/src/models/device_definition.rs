@@ -115,7 +115,7 @@ pub enum RHashType {
 
 impl Default for RHashType {
     fn default() -> RHashType {
-        Self::Box
+        Self::Allinone
     }
 }
 

@@ -96,6 +96,8 @@ impl SomfyProtectClientBuilder {
         }
     }
 }
+
+#[derive(Clone)]
 pub struct SomfyProtectClient {
     configuration: Configuration,
 }
