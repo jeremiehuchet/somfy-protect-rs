@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sites** | Option<[**Vec<crate::models::SiteOutputWithUserRelation>**](SiteOutputWithUserRelation.md)> | User associated sites. | [optional]
+**sites** | Option<[**Vec<models::SiteOutputWithUserRelation>**](SiteOutputWithUserRelation.md)> | User associated sites. | [optional]
 **alexa_selected_site_id** | Option<**String**> |  | [optional]
 **user_id** | Option<**String**> | User identifier. | [optional]
 **created_at** | Option<**String**> | User creation date. | [optional]

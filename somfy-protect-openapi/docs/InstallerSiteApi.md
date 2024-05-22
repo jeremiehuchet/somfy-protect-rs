@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## site_installer_add
 
-> crate::models::UserOutput site_installer_add(site_id, access_token, email)
+> models::UserOutput site_installer_add(site_id, access_token, email)
 Add a link between a site and the installer
 
 ### Parameters
@@ -25,7 +25,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::UserOutput**](UserOutput.md)
+[**models::UserOutput**](UserOutput.md)
 
 ### Authorization
 

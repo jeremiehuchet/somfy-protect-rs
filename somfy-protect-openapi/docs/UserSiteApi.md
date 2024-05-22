@@ -163,7 +163,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_user_update
 
-> crate::models::SiteUserLinkOutput site_user_update(site_id, user_id, site_user_link)
+> models::SiteUserLinkOutput site_user_update(site_id, user_id, site_user_link)
 Update the link between a site and an user
 
 ### Parameters
@@ -177,7 +177,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::SiteUserLinkOutput**](SiteUserLinkOutput.md)
+[**models::SiteUserLinkOutput**](SiteUserLinkOutput.md)
 
 ### Authorization
 
@@ -193,7 +193,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_users_get_list
 
-> crate::models::UserCollection site_users_get_list(site_id)
+> models::UserCollection site_users_get_list(site_id)
 Retrieves the list of users of the site
 
 ### Parameters
@@ -205,7 +205,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::UserCollection**](UserCollection.md)
+[**models::UserCollection**](UserCollection.md)
 
 ### Authorization
 

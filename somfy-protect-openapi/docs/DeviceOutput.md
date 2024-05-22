@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **site_id** | **String** | The device site identifier. | 
 **version** | Option<**String**> | The device firmware version. | [optional]
 **mac** | Option<**String**> | The device MAC address. | [optional]
-**device_definition** | [**crate::models::DeviceDefinition**](DeviceDefinition.md) |  | 
-**status** | [**crate::models::DeviceStatus**](DeviceStatus.md) |  | 
+**device_definition** | [**models::DeviceDefinition**](DeviceDefinition.md) |  | 
+**status** | [**models::DeviceStatus**](DeviceStatus.md) |  | 
 **into_subscription** | Option<**bool**> | Device is into a subscription (uninstall will be forbidden). | [optional]
 **push_to_talk_available** | Option<**bool**> | Camera has push to talk available. | [optional]
 **provider_id** | Option<**String**> | Provider ID. | [optional]
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **is_full_gsm** | Option<**bool**> |  | [optional]
 **label** | Option<**String**> | The device label. | [optional]
 **room_id** | Option<**String**> | The room id. | [optional]
-**settings** | Option<[**crate::models::DeviceSettings**](DeviceSettings.md)> |  | [optional]
+**settings** | Option<[**models::DeviceSettings**](DeviceSettings.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

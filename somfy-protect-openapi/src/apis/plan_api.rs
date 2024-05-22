@@ -11,49 +11,49 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`site_available_plan_list`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteAvailablePlanListParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_cancellationi_immediately`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCancellationiImmediatelyParams {
     /// Site identifier
     pub site_id: String,
     /// Send email on unsubscribe
-    pub unsubscribe_input: Option<crate::models::ServiceUnsubscribeInput>,
+    pub unsubscribe_input: Option<models::ServiceUnsubscribeInput>,
 }
 
 /// struct for passing parameters to the method [`site_checkout`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCheckoutParams {
     /// Site identifier
     pub site_id: String,
     /// Checkout data
-    pub checkout_input: crate::models::ServiceCheckoutInput,
+    pub checkout_input: models::ServiceCheckoutInput,
 }
 
 /// struct for passing parameters to the method [`site_current_plan_list`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCurrentPlanListParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_payment_method_update`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SitePaymentMethodUpdateParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_remove_scheduled_cancellation`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteRemoveScheduledCancellationParams {
     /// Site identifier
     pub site_id: String,
@@ -70,7 +70,7 @@ pub enum SiteAvailablePlanListError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SiteCancellationiImmediatelyError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -78,7 +78,7 @@ pub enum SiteCancellationiImmediatelyError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SiteCheckoutError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -100,14 +100,14 @@ pub enum SitePaymentMethodUpdateError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SiteRemoveScheduledCancellationError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
 pub async fn site_available_plan_list(
     configuration: &configuration::Configuration,
     params: SiteAvailablePlanListParams,
-) -> Result<crate::models::PlanAvailable, Error<SiteAvailablePlanListError>> {
+) -> Result<models::PlanAvailable, Error<SiteAvailablePlanListError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -203,7 +203,7 @@ pub async fn site_cancellationi_immediately(
 pub async fn site_checkout(
     configuration: &configuration::Configuration,
     params: SiteCheckoutParams,
-) -> Result<crate::models::ServiceCheckoutOutput, Error<SiteCheckoutError>> {
+) -> Result<models::ServiceCheckoutOutput, Error<SiteCheckoutError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -252,7 +252,7 @@ pub async fn site_checkout(
 pub async fn site_current_plan_list(
     configuration: &configuration::Configuration,
     params: SiteCurrentPlanListParams,
-) -> Result<crate::models::PlanCurrent, Error<SiteCurrentPlanListError>> {
+) -> Result<models::PlanCurrent, Error<SiteCurrentPlanListError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -299,7 +299,7 @@ pub async fn site_current_plan_list(
 pub async fn site_payment_method_update(
     configuration: &configuration::Configuration,
     params: SitePaymentMethodUpdateParams,
-) -> Result<crate::models::ServiceCheckoutOutput, Error<SitePaymentMethodUpdateError>> {
+) -> Result<models::ServiceCheckoutOutput, Error<SitePaymentMethodUpdateError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

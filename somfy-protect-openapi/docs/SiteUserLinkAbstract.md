@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profiles** | Option<[**Vec<crate::models::UserSiteProfile>**](UserSiteProfile.md)> | Profiles of user for this site. | [optional]
+**profiles** | Option<[**Vec<models::UserSiteProfile>**](UserSiteProfile.md)> | Profiles of user for this site. | [optional]
 **invitation_status** | Option<**String**> | Invitation status. | [optional]
 **site_display_name** | Option<**String**> | Site name for this user. | [optional]
 **display_my_presence** | Option<**bool**> | Status of presence's user. | [optional]

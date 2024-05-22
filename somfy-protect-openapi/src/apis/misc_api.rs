@@ -11,10 +11,10 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`get_dictionary`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GetDictionaryParams {
     /// Dictionary identifier
     pub dictionary_id: String,
@@ -23,19 +23,19 @@ pub struct GetDictionaryParams {
 }
 
 /// struct for passing parameters to the method [`get_user_job`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GetUserJobParams {
     /// Job uniquer identifier
     pub job_id: String,
 }
 
 /// struct for passing parameters to the method [`user_feedback_create`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UserFeedbackCreateParams {
     /// User identifier
     pub user_id: String,
     /// Feedback
-    pub feedback: crate::models::Feedback,
+    pub feedback: models::Feedback,
 }
 
 /// struct for typed errors of method [`get_cloud_info`]
@@ -153,7 +153,7 @@ pub async fn get_dictionary(
 pub async fn get_user_job(
     configuration: &configuration::Configuration,
     params: GetUserJobParams,
-) -> Result<crate::models::Job, Error<GetUserJobError>> {
+) -> Result<models::Job, Error<GetUserJobError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

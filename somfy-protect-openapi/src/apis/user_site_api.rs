@@ -11,21 +11,21 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`site_user_action`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteUserActionParams {
     /// Site identifier
     pub site_id: String,
     /// User identifier
     pub user_id: String,
     /// Details of an action on a link between site and user
-    pub action: crate::models::UserSiteAction,
+    pub action: models::UserSiteAction,
 }
 
 /// struct for passing parameters to the method [`site_user_code_add_or_update`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteUserCodeAddOrUpdateParams {
     /// Site identifier
     pub site_id: String,
@@ -36,7 +36,7 @@ pub struct SiteUserCodeAddOrUpdateParams {
 }
 
 /// struct for passing parameters to the method [`site_user_code_delete`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteUserCodeDeleteParams {
     /// Site identifier
     pub site_id: String,
@@ -45,7 +45,7 @@ pub struct SiteUserCodeDeleteParams {
 }
 
 /// struct for passing parameters to the method [`site_user_delete`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteUserDeleteParams {
     /// Site identifier
     pub site_id: String,
@@ -54,7 +54,7 @@ pub struct SiteUserDeleteParams {
 }
 
 /// struct for passing parameters to the method [`site_user_get`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteUserGetParams {
     /// Site identifier
     pub site_id: String,
@@ -63,18 +63,18 @@ pub struct SiteUserGetParams {
 }
 
 /// struct for passing parameters to the method [`site_user_update`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteUserUpdateParams {
     /// Site identifier
     pub site_id: String,
     /// User identifier
     pub user_id: String,
     /// Details of link between site and user
-    pub site_user_link: crate::models::SiteUserLinkInput,
+    pub site_user_link: models::SiteUserLinkInput,
 }
 
 /// struct for passing parameters to the method [`site_users_get_list`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteUsersGetListParams {
     /// Site identifier
     pub site_id: String,
@@ -112,7 +112,7 @@ pub enum SiteUserDeleteError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SiteUserGetError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -120,7 +120,7 @@ pub enum SiteUserGetError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SiteUserUpdateError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -128,7 +128,7 @@ pub enum SiteUserUpdateError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SiteUsersGetListError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -384,7 +384,7 @@ pub async fn site_user_get(
 pub async fn site_user_update(
     configuration: &configuration::Configuration,
     params: SiteUserUpdateParams,
-) -> Result<crate::models::SiteUserLinkOutput, Error<SiteUserUpdateError>> {
+) -> Result<models::SiteUserLinkOutput, Error<SiteUserUpdateError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -435,7 +435,7 @@ pub async fn site_user_update(
 pub async fn site_users_get_list(
     configuration: &configuration::Configuration,
     params: SiteUsersGetListParams,
-) -> Result<crate::models::UserCollection, Error<SiteUsersGetListError>> {
+) -> Result<models::UserCollection, Error<SiteUsersGetListError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

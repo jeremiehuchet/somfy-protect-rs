@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **present** | **bool** | Is user present in site? | 
-**geo_fence** | Option<[**crate::models::GeoFenceOutput**](GeoFenceOutput.md)> |  | [optional]
+**geo_fence** | Option<[**models::GeoFenceOutput**](GeoFenceOutput.md)> |  | [optional]
 **alexa_selected_at** | Option<**String**> | User site alexa selection datetime. | [optional]
 **display_my_presence** | Option<**bool**> | Status of presence's user. | [optional]
 **access_code** | Option<**String**> | Access Code. | [optional]
-**profiles** | [**Vec<crate::models::UserSiteProfile>**](UserSiteProfile.md) | Profiles of user for this site. | 
+**profiles** | [**Vec<models::UserSiteProfile>**](UserSiteProfile.md) | Profiles of user for this site. | 
 **has_individual_code** | Option<**bool**> | user has individual code. | [optional]
 **user_id** | Option<**String**> | User identifier. | [optional]
 **created_at** | Option<**String**> | User creation date. | [optional]

@@ -39,7 +39,7 @@ Name | Type | Description  | Required | Notes
 
 ## upload_photo
 
-> crate::models::UploadedPhoto upload_photo(photo)
+> models::UploadedPhoto upload_photo(photo)
 Upload a new photo
 
 ### Parameters
@@ -51,7 +51,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::UploadedPhoto**](UploadedPhoto.md)
+[**models::UploadedPhoto**](UploadedPhoto.md)
 
 ### Authorization
 

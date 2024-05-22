@@ -11,19 +11,19 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`user_mobile_create`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UserMobileCreateParams {
     /// User identifier
     pub user_id: String,
     /// Mobile details
-    pub mobile: crate::models::Mobile,
+    pub mobile: models::Mobile,
 }
 
 /// struct for passing parameters to the method [`user_mobile_delete`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UserMobileDeleteParams {
     /// User identifier
     pub user_id: String,
@@ -48,7 +48,7 @@ pub enum UserMobileDeleteError {
 pub async fn user_mobile_create(
     configuration: &configuration::Configuration,
     params: UserMobileCreateParams,
-) -> Result<crate::models::Mobile, Error<UserMobileCreateError>> {
+) -> Result<models::Mobile, Error<UserMobileCreateError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

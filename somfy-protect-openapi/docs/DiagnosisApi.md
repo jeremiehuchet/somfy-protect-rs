@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## global_testing_diagnosis
 
-> crate::models::Job global_testing_diagnosis(site_id)
+> models::Job global_testing_diagnosis(site_id)
 Start the global testing of all devices for a site
 
 ### Parameters
@@ -24,7 +24,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -40,7 +40,7 @@ Name | Type | Description  | Required | Notes
 
 ## global_testing_diagnosis_extend
 
-> crate::models::Job global_testing_diagnosis_extend(site_id)
+> models::Job global_testing_diagnosis_extend(site_id)
 Extends the global testing of all devices for a site
 
 ### Parameters
@@ -52,7 +52,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Required | Notes
 
 ## global_testing_diagnosis_stop
 
-> crate::models::Job global_testing_diagnosis_stop(site_id)
+> models::Job global_testing_diagnosis_stop(site_id)
 Stops the global testing of all devices for a site
 
 ### Parameters
@@ -80,7 +80,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 

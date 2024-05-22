@@ -32,7 +32,7 @@ Method | HTTP request | Description
 
 ## answer_call
 
-> crate::models::Job answer_call(site_id, device_id, session_id)
+> models::Job answer_call(site_id, device_id, session_id)
 Ask WebRTC Answer Call
 
 ### Parameters
@@ -46,7 +46,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -62,7 +62,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_action
 
-> crate::models::JobCollection device_action(site_id, device_id, device_details)
+> models::JobCollection device_action(site_id, device_id, device_details)
 Run an action on a device
 
 ### Parameters
@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::JobCollection**](JobCollection.md)
+[**models::JobCollection**](JobCollection.md)
 
 ### Authorization
 
@@ -92,7 +92,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_calibration_start
 
-> crate::models::Job device_calibration_start(site_id, device_id)
+> models::Job device_calibration_start(site_id, device_id)
 Start calibration of a device
 
 Start calibration of a device (only for IntelliTAG)
@@ -107,7 +107,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_calibration_stop
 
-> crate::models::Job device_calibration_stop(site_id, device_id)
+> models::Job device_calibration_stop(site_id, device_id)
 Stop calibration of a device
 
 Stop calibration of a device (only for IntelliTAG)
@@ -138,7 +138,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -154,7 +154,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_get_details
 
-> crate::models::DeviceOutput device_get_details(site_id, device_id)
+> models::DeviceOutput device_get_details(site_id, device_id)
 Get details of a device
 
 ### Parameters
@@ -167,7 +167,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::DeviceOutput**](DeviceOutput.md)
+[**models::DeviceOutput**](DeviceOutput.md)
 
 ### Authorization
 
@@ -183,7 +183,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_homekit_installation_start
 
-> crate::models::Job device_homekit_installation_start(site_id, model, install_options)
+> models::Job device_homekit_installation_start(site_id, model, install_options)
 Start installation of a device
 
 ### Parameters
@@ -197,7 +197,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -242,7 +242,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_installation_extend
 
-> crate::models::Job device_installation_extend(site_id, model, extend_options)
+> models::Job device_installation_extend(site_id, model, extend_options)
 Extend installation duration of a device
 
 ### Parameters
@@ -256,7 +256,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -272,7 +272,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_installation_start
 
-> crate::models::Job device_installation_start(site_id, model, install_options)
+> models::Job device_installation_start(site_id, model, install_options)
 Start installation of a device
 
 ### Parameters
@@ -286,7 +286,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -302,7 +302,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_installation_stop
 
-> crate::models::Job device_installation_stop(site_id, model)
+> models::Job device_installation_stop(site_id, model)
 Stop installation of a device
 
 ### Parameters
@@ -315,7 +315,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -331,7 +331,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_reset
 
-> crate::models::Reset device_reset(site_id, device_id, wifi_credentials)
+> models::Reset device_reset(site_id, device_id, wifi_credentials)
 Build an encrypted reset payload for the mobile app
 
 ### Parameters
@@ -345,7 +345,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Reset**](Reset.md)
+[**models::Reset**](Reset.md)
 
 ### Authorization
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_reset_wifi
 
-> crate::models::Reset device_reset_wifi(site_id, device_id)
+> models::Reset device_reset_wifi(site_id, device_id)
 Reset wifi for a video device
 
 ### Parameters
@@ -374,7 +374,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Reset**](Reset.md)
+[**models::Reset**](Reset.md)
 
 ### Authorization
 
@@ -390,7 +390,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_set_details
 
-> crate::models::Job device_set_details(site_id, device_id, device_details)
+> models::Job device_set_details(site_id, device_id, device_details)
 Set details of a device
 
 ### Parameters
@@ -404,7 +404,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -420,7 +420,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_sound
 
-> crate::models::Job device_sound(site_id, device_id, sound_ref)
+> models::Job device_sound(site_id, device_id, sound_ref)
 Play a sound on a device
 
 ### Parameters
@@ -434,7 +434,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -450,7 +450,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_uninstall_start
 
-> crate::models::Job device_uninstall_start(site_id, device_id)
+> models::Job device_uninstall_start(site_id, device_id)
 Uninstall a device previously installed on this site
 
 ### Parameters
@@ -463,7 +463,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -479,7 +479,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_uninstall_stop
 
-> crate::models::Job device_uninstall_stop(site_id, device_id)
+> models::Job device_uninstall_stop(site_id, device_id)
 Stop uninstall process of a device
 
 ### Parameters
@@ -492,7 +492,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -508,7 +508,7 @@ Name | Type | Description  | Required | Notes
 
 ## device_update_firmware
 
-> crate::models::Job device_update_firmware(site_id, device_id)
+> models::Job device_update_firmware(site_id, device_id)
 Ask firmware update for a device
 
 ### Parameters
@@ -521,7 +521,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -537,7 +537,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_compatible_devices
 
-> crate::models::DeviceCompatibilityCollection get_compatible_devices(site_id)
+> models::DeviceCompatibilityCollection get_compatible_devices(site_id)
 Get list of devices compatible for installation on site
 
 ### Parameters
@@ -549,7 +549,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::DeviceCompatibilityCollection**](DeviceCompatibilityCollection.md)
+[**models::DeviceCompatibilityCollection**](DeviceCompatibilityCollection.md)
 
 ### Authorization
 
@@ -565,7 +565,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_installed_devices
 
-> crate::models::DeviceCollection get_installed_devices(site_id)
+> models::DeviceCollection get_installed_devices(site_id)
 Get list of installed devices on site
 
 ### Parameters
@@ -577,7 +577,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::DeviceCollection**](DeviceCollection.md)
+[**models::DeviceCollection**](DeviceCollection.md)
 
 ### Authorization
 
@@ -649,7 +649,7 @@ Name | Type | Description  | Required | Notes
 
 ## mode_hkp_get_details
 
-> crate::models::HkpMode mode_hkp_get_details(site_id, mode_name)
+> models::HkpMode mode_hkp_get_details(site_id, mode_name)
 Get details of a mode
 
 ### Parameters
@@ -662,7 +662,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::HkpMode**](HkpMode.md)
+[**models::HkpMode**](HkpMode.md)
 
 ### Authorization
 
@@ -678,7 +678,7 @@ Name | Type | Description  | Required | Notes
 
 ## mode_hkp_update
 
-> crate::models::Job mode_hkp_update(site_id, mode_name)
+> models::Job mode_hkp_update(site_id, mode_name)
 Update HKP mode settings
 
 ### Parameters
@@ -691,7 +691,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 

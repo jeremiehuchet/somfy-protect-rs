@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## invoice_list
 
-> crate::models::ServiceInvoiceCollection invoice_list(site_id, date_min, date_max, order, limit, start_after, end_before)
+> models::ServiceInvoiceCollection invoice_list(site_id, date_min, date_max, order, limit, start_after, end_before)
 Get invoices list
 
 ### Parameters
@@ -29,7 +29,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::ServiceInvoiceCollection**](ServiceInvoiceCollection.md)
+[**models::ServiceInvoiceCollection**](ServiceInvoiceCollection.md)
 
 ### Authorization
 

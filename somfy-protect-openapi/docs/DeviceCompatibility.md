@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**device** | [**crate::models::DeviceDefinition**](DeviceDefinition.md) |  | 
+**device** | [**models::DeviceDefinition**](DeviceDefinition.md) |  | 
 **installed** | [**serde_json::Value**](.md) | The number of installed devices | 
 **max** | **i32** | The maximum of installable devices | 
 

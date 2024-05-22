@@ -40,7 +40,7 @@ No authorization required
 
 ## site_invitation_send
 
-> crate::models::UserOutput site_invitation_send(site_id, invitation)
+> models::UserOutput site_invitation_send(site_id, invitation)
 Send an invitation for using a site
 
 ### Parameters
@@ -53,7 +53,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::UserOutput**](UserOutput.md)
+[**models::UserOutput**](UserOutput.md)
 
 ### Authorization
 

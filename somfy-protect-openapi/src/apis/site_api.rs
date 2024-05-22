@@ -11,33 +11,33 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`change_security_level`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct ChangeSecurityLevelParams {
     /// Site identifier
     pub site_id: String,
     /// Security object
-    pub security_level: crate::models::Security,
+    pub security_level: models::Security,
 }
 
 /// struct for passing parameters to the method [`create_site`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct CreateSiteParams {
     /// Site object
-    pub site: crate::models::SiteInput,
+    pub site: models::SiteInput,
 }
 
 /// struct for passing parameters to the method [`delete_site`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeleteSiteParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`device_updates_get`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceUpdatesGetParams {
     /// Site identifier
     pub site_id: String,
@@ -46,28 +46,28 @@ pub struct DeviceUpdatesGetParams {
 }
 
 /// struct for passing parameters to the method [`get_site`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GetSiteParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`get_site_lorawan_cover_test`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GetSiteLorawanCoverTestParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_alarm_stop`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteAlarmStopParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_domestic_alarm_stop`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteDomesticAlarmStopParams {
     /// Site identifier
     pub site_id: String,
@@ -76,7 +76,7 @@ pub struct SiteDomesticAlarmStopParams {
 }
 
 /// struct for passing parameters to the method [`site_history`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteHistoryParams {
     /// Site identifier.
     pub site_id: String,
@@ -97,44 +97,44 @@ pub struct SiteHistoryParams {
 }
 
 /// struct for passing parameters to the method [`site_manual_alarm_trigger`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteManualAlarmTriggerParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_panic_start`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SitePanicStartParams {
     /// Site identifier
     pub site_id: String,
     /// Panic mode details
-    pub panic: crate::models::Panic,
+    pub panic: models::Panic,
 }
 
 /// struct for passing parameters to the method [`site_set_privacy`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteSetPrivacyParams {
     /// Site identifier
     pub site_id: String,
     /// Privacy details
-    pub privacy: crate::models::SitePrivacy,
+    pub privacy: models::SitePrivacy,
 }
 
 /// struct for passing parameters to the method [`update_site`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UpdateSiteParams {
     /// Site identifier
     pub site_id: String,
     /// Site object
-    pub site: crate::models::SiteInput,
+    pub site: models::SiteInput,
 }
 
 /// struct for typed errors of method [`change_security_level`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ChangeSecurityLevelError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -142,7 +142,7 @@ pub enum ChangeSecurityLevelError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateSiteError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -150,7 +150,7 @@ pub enum CreateSiteError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteSiteError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -165,7 +165,7 @@ pub enum DeviceUpdatesGetError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSiteError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -173,7 +173,7 @@ pub enum GetSiteError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSiteLorawanCoverTestError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -202,7 +202,7 @@ pub enum SiteGetListError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SiteHistoryError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -231,14 +231,14 @@ pub enum SiteSetPrivacyError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateSiteError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
 pub async fn change_security_level(
     configuration: &configuration::Configuration,
     params: ChangeSecurityLevelParams,
-) -> Result<crate::models::Job, Error<ChangeSecurityLevelError>> {
+) -> Result<models::Job, Error<ChangeSecurityLevelError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -287,7 +287,7 @@ pub async fn change_security_level(
 pub async fn create_site(
     configuration: &configuration::Configuration,
     params: CreateSiteParams,
-) -> Result<crate::models::SiteOutput, Error<CreateSiteError>> {
+) -> Result<models::SiteOutput, Error<CreateSiteError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -427,7 +427,7 @@ pub async fn device_updates_get(
 pub async fn get_site(
     configuration: &configuration::Configuration,
     params: GetSiteParams,
-) -> Result<crate::models::SiteOutput, Error<GetSiteError>> {
+) -> Result<models::SiteOutput, Error<GetSiteError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -473,7 +473,7 @@ pub async fn get_site(
 pub async fn get_site_lorawan_cover_test(
     configuration: &configuration::Configuration,
     params: GetSiteLorawanCoverTestParams,
-) -> Result<crate::models::LoraWanCover, Error<GetSiteLorawanCoverTestError>> {
+) -> Result<models::LoraWanCover, Error<GetSiteLorawanCoverTestError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -520,7 +520,7 @@ pub async fn get_site_lorawan_cover_test(
 pub async fn site_alarm_stop(
     configuration: &configuration::Configuration,
     params: SiteAlarmStopParams,
-) -> Result<crate::models::Job, Error<SiteAlarmStopError>> {
+) -> Result<models::Job, Error<SiteAlarmStopError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -615,7 +615,7 @@ pub async fn site_domestic_alarm_stop(
 
 pub async fn site_get_list(
     configuration: &configuration::Configuration,
-) -> Result<crate::models::SiteCollection, Error<SiteGetListError>> {
+) -> Result<models::SiteCollection, Error<SiteGetListError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -657,7 +657,7 @@ pub async fn site_get_list(
 pub async fn site_history(
     configuration: &configuration::Configuration,
     params: SiteHistoryParams,
-) -> Result<crate::models::SiteEventCollection, Error<SiteHistoryError>> {
+) -> Result<models::SiteEventCollection, Error<SiteHistoryError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -739,7 +739,7 @@ pub async fn site_history(
 pub async fn site_manual_alarm_trigger(
     configuration: &configuration::Configuration,
     params: SiteManualAlarmTriggerParams,
-) -> Result<crate::models::Job, Error<SiteManualAlarmTriggerError>> {
+) -> Result<models::Job, Error<SiteManualAlarmTriggerError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -786,7 +786,7 @@ pub async fn site_manual_alarm_trigger(
 pub async fn site_panic_start(
     configuration: &configuration::Configuration,
     params: SitePanicStartParams,
-) -> Result<crate::models::Job, Error<SitePanicStartError>> {
+) -> Result<models::Job, Error<SitePanicStartError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -835,7 +835,7 @@ pub async fn site_panic_start(
 pub async fn site_set_privacy(
     configuration: &configuration::Configuration,
     params: SiteSetPrivacyParams,
-) -> Result<crate::models::Job, Error<SiteSetPrivacyError>> {
+) -> Result<models::Job, Error<SiteSetPrivacyError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

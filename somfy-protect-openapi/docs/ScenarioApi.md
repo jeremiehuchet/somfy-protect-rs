@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## site_scenario_create
 
-> crate::models::Job site_scenario_create(site_id, scenario)
+> models::Job site_scenario_create(site_id, scenario)
 Create a new scenario on a specific site
 
 ### Parameters
@@ -26,7 +26,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -42,7 +42,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_scenario_delete
 
-> crate::models::Job site_scenario_delete(site_id, scenario_id)
+> models::Job site_scenario_delete(site_id, scenario_id)
 Delete a scenario
 
 ### Parameters
@@ -55,7 +55,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_scenario_get_list
 
-> crate::models::ScenarioCollection site_scenario_get_list(site_id)
+> models::ScenarioCollection site_scenario_get_list(site_id)
 Get list of scenarios
 
 ### Parameters
@@ -83,7 +83,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::ScenarioCollection**](ScenarioCollection.md)
+[**models::ScenarioCollection**](ScenarioCollection.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_scenario_update
 
-> crate::models::Job site_scenario_update(site_id, scenario_id, scenario)
+> models::Job site_scenario_update(site_id, scenario_id, scenario)
 Update a scenario
 
 ### Parameters
@@ -113,7 +113,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 

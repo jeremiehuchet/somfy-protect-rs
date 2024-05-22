@@ -11,17 +11,17 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`site_calendar_scenario_create`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCalendarScenarioCreateParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_calendar_scenario_delete`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCalendarScenarioDeleteParams {
     /// Site identifier
     pub site_id: String,
@@ -30,7 +30,7 @@ pub struct SiteCalendarScenarioDeleteParams {
 }
 
 /// struct for passing parameters to the method [`site_calendar_scenario_get`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCalendarScenarioGetParams {
     /// Site identifier
     pub site_id: String,
@@ -39,14 +39,14 @@ pub struct SiteCalendarScenarioGetParams {
 }
 
 /// struct for passing parameters to the method [`site_calendar_scenario_get_list`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCalendarScenarioGetListParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_calendar_scenario_update`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCalendarScenarioUpdateParams {
     /// Site identifier
     pub site_id: String,

@@ -11,17 +11,17 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`create_user`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct CreateUserParams {
     /// Details of link between site and user
-    pub site_user_link: crate::models::UserInput,
+    pub site_user_link: models::UserInput,
 }
 
 /// struct for passing parameters to the method [`delete_sp_data`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeleteSpDataParams {
     /// Access token
     pub access_token: String,
@@ -34,48 +34,48 @@ pub struct DeleteSpDataParams {
 }
 
 /// struct for passing parameters to the method [`send_password_token`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SendPasswordTokenParams {
     /// Email of user that needs password change
     pub username: String,
 }
 
 /// struct for passing parameters to the method [`update_user`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UpdateUserParams {
     /// User identifier. Current logged user if not provided
     pub user_id: String,
     /// User object
-    pub user: crate::models::UserInputForUpdate,
+    pub user: models::UserInputForUpdate,
 }
 
 /// struct for passing parameters to the method [`update_user_with_token`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UpdateUserWithTokenParams {
     /// secure token
     pub security_token: String,
     /// User details
-    pub user: crate::models::UserInputWithSecureToken,
+    pub user: models::UserInputWithSecureToken,
 }
 
 /// struct for passing parameters to the method [`user_guest_create`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UserGuestCreateParams {
     /// Details of link between site and user
-    pub site_user_link: crate::models::UserGuestInput,
+    pub site_user_link: models::UserGuestInput,
 }
 
 /// struct for passing parameters to the method [`user_password_set`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UserPasswordSetParams {
     /// User identifier
     pub user_id: String,
     /// Password details
-    pub password: crate::models::Password,
+    pub password: models::Password,
 }
 
 /// struct for passing parameters to the method [`validate_email`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct ValidateEmailParams {
     /// Email to validate.
     pub email: String,
@@ -128,7 +128,7 @@ pub enum UserGuestCreateError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UserPasswordSetError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -142,7 +142,7 @@ pub enum ValidateEmailError {
 pub async fn create_user(
     configuration: &configuration::Configuration,
     params: CreateUserParams,
-) -> Result<crate::models::UserOutput, Error<CreateUserError>> {
+) -> Result<models::UserOutput, Error<CreateUserError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -369,7 +369,7 @@ pub async fn update_user_with_token(
 pub async fn user_guest_create(
     configuration: &configuration::Configuration,
     params: UserGuestCreateParams,
-) -> Result<crate::models::UserGuestOutput, Error<UserGuestCreateError>> {
+) -> Result<models::UserGuestOutput, Error<UserGuestCreateError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -459,7 +459,7 @@ pub async fn user_password_set(
 pub async fn validate_email(
     configuration: &configuration::Configuration,
     params: ValidateEmailParams,
-) -> Result<crate::models::ValidateEmail200Response, Error<ValidateEmailError>> {
+) -> Result<models::ValidateEmail200Response, Error<ValidateEmailError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

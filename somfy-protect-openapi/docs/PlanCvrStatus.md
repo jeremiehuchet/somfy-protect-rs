@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **cvr_span** | Option<**i32**> | CVR span. | [optional]
-**cameras** | [**Vec<crate::models::PlanCvrCamera>**](PlanCvrCamera.md) | List of cameras. | 
+**cameras** | [**Vec<models::PlanCvrCamera>**](PlanCvrCamera.md) | List of cameras. | 
 **provider** | Option<**String**> | Service provider. | [optional]
 **displayed** | **bool** | Service is displayed. | 
 **available** | **bool** | Service is available. | 

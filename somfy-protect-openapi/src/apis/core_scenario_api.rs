@@ -11,10 +11,10 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`site_core_scenario_get`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCoreScenarioGetParams {
     /// Site identifier
     pub site_id: String,
@@ -23,14 +23,14 @@ pub struct SiteCoreScenarioGetParams {
 }
 
 /// struct for passing parameters to the method [`site_core_scenario_get_list`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCoreScenarioGetListParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_core_scenario_update`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteCoreScenarioUpdateParams {
     /// Site identifier
     pub site_id: String,

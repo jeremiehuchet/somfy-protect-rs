@@ -11,10 +11,10 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`invoice_list`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct InvoiceListParams {
     /// Site identifier
     pub site_id: String,
@@ -33,7 +33,7 @@ pub struct InvoiceListParams {
 }
 
 /// struct for passing parameters to the method [`invoice_pdf`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct InvoicePdfParams {
     /// Site identifier
     pub site_id: String,
@@ -45,7 +45,7 @@ pub struct InvoicePdfParams {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum InvoiceListError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -60,7 +60,7 @@ pub enum InvoicePdfError {
 pub async fn invoice_list(
     configuration: &configuration::Configuration,
     params: InvoiceListParams,
-) -> Result<crate::models::ServiceInvoiceCollection, Error<InvoiceListError>> {
+) -> Result<models::ServiceInvoiceCollection, Error<InvoiceListError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

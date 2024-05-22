@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**product** | [**crate::models::ServiceProductOutput**](ServiceProductOutput.md) |  | 
+**product** | [**models::ServiceProductOutput**](ServiceProductOutput.md) |  | 
 **subscription_id** | Option<**String**> | Subscription identifier. | [optional]
 **started_at** | Option<**String**> | Start time of subscription. | [optional]
 

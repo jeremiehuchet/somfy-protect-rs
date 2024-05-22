@@ -11,17 +11,17 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`get_user_info`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GetUserInfoParams {
     /// User identifier. Current logged user if not provided
     pub user_id: String,
 }
 
 /// struct for passing parameters to the method [`site_user_token_action`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteUserTokenActionParams {
     /// Site identifier
     pub site_id: String,
@@ -32,14 +32,14 @@ pub struct SiteUserTokenActionParams {
 }
 
 /// struct for passing parameters to the method [`update_site_user_location`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UpdateSiteUserLocationParams {
     /// Site identifier
     pub site_id: String,
     /// User identifier
     pub user_id: String,
     /// Details to update geoFencing or presence
-    pub location: crate::models::LocationInput,
+    pub location: models::LocationInput,
 }
 
 /// struct for typed errors of method [`get_user_info`]
@@ -66,7 +66,7 @@ pub enum UpdateSiteUserLocationError {
 pub async fn get_user_info(
     configuration: &configuration::Configuration,
     params: GetUserInfoParams,
-) -> Result<crate::models::UserOutputWithSites, Error<GetUserInfoError>> {
+) -> Result<models::UserOutputWithSites, Error<GetUserInfoError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -158,7 +158,7 @@ pub async fn site_user_token_action(
 pub async fn update_site_user_location(
     configuration: &configuration::Configuration,
     params: UpdateSiteUserLocationParams,
-) -> Result<crate::models::LocationOutput, Error<UpdateSiteUserLocationError>> {
+) -> Result<models::LocationOutput, Error<UpdateSiteUserLocationError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## change_security_level
 
-> crate::models::Job change_security_level(site_id, security_level)
+> models::Job change_security_level(site_id, security_level)
 Change security level
 
 ### Parameters
@@ -36,7 +36,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_site
 
-> crate::models::SiteOutput create_site(site)
+> models::SiteOutput create_site(site)
 Creates a new site
 
 ### Parameters
@@ -64,7 +64,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::SiteOutput**](SiteOutput.md)
+[**models::SiteOutput**](SiteOutput.md)
 
 ### Authorization
 
@@ -137,7 +137,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_site
 
-> crate::models::SiteOutput get_site(site_id)
+> models::SiteOutput get_site(site_id)
 Get a specific site for the current user
 
 ### Parameters
@@ -149,7 +149,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::SiteOutput**](SiteOutput.md)
+[**models::SiteOutput**](SiteOutput.md)
 
 ### Authorization
 
@@ -165,7 +165,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_site_lorawan_cover_test
 
-> crate::models::LoraWanCover get_site_lorawan_cover_test(site_id)
+> models::LoraWanCover get_site_lorawan_cover_test(site_id)
 LoRawan Cover test on site
 
 ### Parameters
@@ -177,7 +177,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::LoraWanCover**](LoraWanCover.md)
+[**models::LoraWanCover**](LoraWanCover.md)
 
 ### Authorization
 
@@ -193,7 +193,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_alarm_stop
 
-> crate::models::Job site_alarm_stop(site_id)
+> models::Job site_alarm_stop(site_id)
 Stop current site alarm
 
 ### Parameters
@@ -205,7 +205,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -250,7 +250,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_get_list
 
-> crate::models::SiteCollection site_get_list()
+> models::SiteCollection site_get_list()
 List available sites for the current user
 
 ### Parameters
@@ -259,7 +259,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::SiteCollection**](SiteCollection.md)
+[**models::SiteCollection**](SiteCollection.md)
 
 ### Authorization
 
@@ -275,7 +275,7 @@ This endpoint does not need any parameter.
 
 ## site_history
 
-> crate::models::SiteEventCollection site_history(site_id, date_min, date_max, message_type, order, limit, start_after, end_before)
+> models::SiteEventCollection site_history(site_id, date_min, date_max, message_type, order, limit, start_after, end_before)
 Get filtered and sorted site events
 
 ### Parameters
@@ -294,7 +294,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::SiteEventCollection**](SiteEventCollection.md)
+[**models::SiteEventCollection**](SiteEventCollection.md)
 
 ### Authorization
 
@@ -310,7 +310,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_manual_alarm_trigger
 
-> crate::models::Job site_manual_alarm_trigger(site_id)
+> models::Job site_manual_alarm_trigger(site_id)
 Trigger site alarm
 
 ### Parameters
@@ -322,7 +322,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -338,7 +338,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_panic_start
 
-> crate::models::Job site_panic_start(site_id, panic)
+> models::Job site_panic_start(site_id, panic)
 Put site in panic mode
 
 ### Parameters
@@ -351,7 +351,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 
@@ -367,7 +367,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_set_privacy
 
-> crate::models::Job site_set_privacy(site_id, privacy)
+> models::Job site_set_privacy(site_id, privacy)
 Set the privacy state
 
 ### Parameters
@@ -380,7 +380,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 

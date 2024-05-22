@@ -67,7 +67,7 @@ No authorization required
 
 ## get_user_job
 
-> crate::models::Job get_user_job(job_id)
+> models::Job get_user_job(job_id)
 Get user job
 
 ### Parameters
@@ -79,7 +79,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Job**](Job.md)
+[**models::Job**](Job.md)
 
 ### Authorization
 

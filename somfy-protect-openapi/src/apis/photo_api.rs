@@ -11,20 +11,20 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`get_photo`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GetPhotoParams {
     /// Photo identifier
     pub photo_id: String,
 }
 
 /// struct for passing parameters to the method [`upload_photo`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UploadPhotoParams {
     /// Photo to upload
-    pub photo: crate::models::NewPhoto,
+    pub photo: models::NewPhoto,
 }
 
 /// struct for typed errors of method [`get_photo`]
@@ -90,7 +90,7 @@ pub async fn get_photo(
 pub async fn upload_photo(
     configuration: &configuration::Configuration,
     params: UploadPhotoParams,
-) -> Result<crate::models::UploadedPhoto, Error<UploadPhotoError>> {
+) -> Result<models::UploadedPhoto, Error<UploadPhotoError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

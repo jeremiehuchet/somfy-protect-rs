@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## create_user
 
-> crate::models::UserOutput create_user(site_user_link)
+> models::UserOutput create_user(site_user_link)
 Create a user account
 
 ### Parameters
@@ -29,7 +29,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::UserOutput**](UserOutput.md)
+[**models::UserOutput**](UserOutput.md)
 
 ### Authorization
 
@@ -162,7 +162,7 @@ No authorization required
 
 ## user_guest_create
 
-> crate::models::UserGuestOutput user_guest_create(site_user_link)
+> models::UserGuestOutput user_guest_create(site_user_link)
 Creates a guest user account
 
 Creates a new user without credentials, associated to the site and available for fob / user association
@@ -176,7 +176,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::UserGuestOutput**](UserGuestOutput.md)
+[**models::UserGuestOutput**](UserGuestOutput.md)
 
 ### Authorization
 
@@ -221,7 +221,7 @@ No authorization required
 
 ## validate_email
 
-> crate::models::ValidateEmail200Response validate_email(email)
+> models::ValidateEmail200Response validate_email(email)
 Is email valid
 
 ### Parameters
@@ -233,7 +233,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::ValidateEmail200Response**](validateEmail_200_response.md)
+[**models::ValidateEmail200Response**](validateEmail_200_response.md)
 
 ### Authorization
 

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## create_room
 
-> crate::models::RoomOutput create_room(site_id, room)
+> models::RoomOutput create_room(site_id, room)
 Create a new room
 
 ### Parameters
@@ -26,7 +26,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RoomOutput**](RoomOutput.md)
+[**models::RoomOutput**](RoomOutput.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_rooms
 
-> crate::models::RoomList list_rooms(site_id)
+> models::RoomList list_rooms(site_id)
 List rooms
 
 ### Parameters
@@ -83,7 +83,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RoomList**](RoomList.md)
+[**models::RoomList**](RoomList.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_room
 
-> crate::models::RoomOutput update_room(site_id, room_id)
+> models::RoomOutput update_room(site_id, room_id)
 Update a room
 
 ### Parameters
@@ -112,7 +112,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RoomOutput**](RoomOutput.md)
+[**models::RoomOutput**](RoomOutput.md)
 
 ### Authorization
 

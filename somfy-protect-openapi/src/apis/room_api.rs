@@ -11,19 +11,19 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`create_room`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct CreateRoomParams {
     /// Site identifier
     pub site_id: String,
     /// Room
-    pub room: crate::models::RoomInput,
+    pub room: models::RoomInput,
 }
 
 /// struct for passing parameters to the method [`delete_room`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeleteRoomParams {
     /// Site identifier
     pub site_id: String,
@@ -32,14 +32,14 @@ pub struct DeleteRoomParams {
 }
 
 /// struct for passing parameters to the method [`list_rooms`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct ListRoomsParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`update_room`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct UpdateRoomParams {
     /// Site identifier
     pub site_id: String,
@@ -51,7 +51,7 @@ pub struct UpdateRoomParams {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRoomError {
-    Status400(crate::models::ApiException),
+    Status400(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -59,8 +59,8 @@ pub enum CreateRoomError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteRoomError {
-    Status400(crate::models::ApiException),
-    Status404(crate::models::ApiException),
+    Status400(models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,8 +68,8 @@ pub enum DeleteRoomError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListRoomsError {
-    Status400(crate::models::ApiException),
-    Status404(crate::models::ApiException),
+    Status400(models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -77,15 +77,15 @@ pub enum ListRoomsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateRoomError {
-    Status400(crate::models::ApiException),
-    Status404(crate::models::ApiException),
+    Status400(models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
 pub async fn create_room(
     configuration: &configuration::Configuration,
     params: CreateRoomParams,
-) -> Result<crate::models::RoomOutput, Error<CreateRoomError>> {
+) -> Result<models::RoomOutput, Error<CreateRoomError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -183,7 +183,7 @@ pub async fn delete_room(
 pub async fn list_rooms(
     configuration: &configuration::Configuration,
     params: ListRoomsParams,
-) -> Result<crate::models::RoomList, Error<ListRoomsError>> {
+) -> Result<models::RoomList, Error<ListRoomsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -230,7 +230,7 @@ pub async fn list_rooms(
 pub async fn update_room(
     configuration: &configuration::Configuration,
     params: UpdateRoomParams,
-) -> Result<crate::models::RoomOutput, Error<UpdateRoomError>> {
+) -> Result<models::RoomOutput, Error<UpdateRoomError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

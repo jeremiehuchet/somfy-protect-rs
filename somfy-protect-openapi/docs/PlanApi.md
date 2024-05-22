@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## site_available_plan_list
 
-> crate::models::PlanAvailable site_available_plan_list(site_id)
+> models::PlanAvailable site_available_plan_list(site_id)
 Get available plans
 
 ### Parameters
@@ -27,7 +27,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::PlanAvailable**](PlanAvailable.md)
+[**models::PlanAvailable**](PlanAvailable.md)
 
 ### Authorization
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_checkout
 
-> crate::models::ServiceCheckoutOutput site_checkout(site_id, checkout_input)
+> models::ServiceCheckoutOutput site_checkout(site_id, checkout_input)
 Send cart and get checkout result
 
 ### Parameters
@@ -85,7 +85,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::ServiceCheckoutOutput**](ServiceCheckoutOutput.md)
+[**models::ServiceCheckoutOutput**](ServiceCheckoutOutput.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_current_plan_list
 
-> crate::models::PlanCurrent site_current_plan_list(site_id)
+> models::PlanCurrent site_current_plan_list(site_id)
 Get current plans
 
 ### Parameters
@@ -113,7 +113,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::PlanCurrent**](PlanCurrent.md)
+[**models::PlanCurrent**](PlanCurrent.md)
 
 ### Authorization
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Required | Notes
 
 ## site_payment_method_update
 
-> crate::models::ServiceCheckoutOutput site_payment_method_update(site_id)
+> models::ServiceCheckoutOutput site_payment_method_update(site_id)
 Get an URL to update the payment method
 
 ### Parameters
@@ -141,7 +141,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::ServiceCheckoutOutput**](ServiceCheckoutOutput.md)
+[**models::ServiceCheckoutOutput**](ServiceCheckoutOutput.md)
 
 ### Authorization
 

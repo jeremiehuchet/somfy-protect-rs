@@ -11,19 +11,19 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`site_scenario_create`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteScenarioCreateParams {
     /// Site identifier
     pub site_id: String,
     /// New scenario to create
-    pub scenario: crate::models::ScenarioInput,
+    pub scenario: models::ScenarioInput,
 }
 
 /// struct for passing parameters to the method [`site_scenario_delete`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteScenarioDeleteParams {
     /// Site identifier
     pub site_id: String,
@@ -32,21 +32,21 @@ pub struct SiteScenarioDeleteParams {
 }
 
 /// struct for passing parameters to the method [`site_scenario_get_list`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteScenarioGetListParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`site_scenario_update`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteScenarioUpdateParams {
     /// Site identifier
     pub site_id: String,
     /// Scenario identifier
     pub scenario_id: String,
     /// New scenario data
-    pub scenario: crate::models::ScenarioInput,
+    pub scenario: models::ScenarioInput,
 }
 
 /// struct for typed errors of method [`site_scenario_create`]
@@ -80,7 +80,7 @@ pub enum SiteScenarioUpdateError {
 pub async fn site_scenario_create(
     configuration: &configuration::Configuration,
     params: SiteScenarioCreateParams,
-) -> Result<crate::models::Job, Error<SiteScenarioCreateError>> {
+) -> Result<models::Job, Error<SiteScenarioCreateError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -129,7 +129,7 @@ pub async fn site_scenario_create(
 pub async fn site_scenario_delete(
     configuration: &configuration::Configuration,
     params: SiteScenarioDeleteParams,
-) -> Result<crate::models::Job, Error<SiteScenarioDeleteError>> {
+) -> Result<models::Job, Error<SiteScenarioDeleteError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -178,7 +178,7 @@ pub async fn site_scenario_delete(
 pub async fn site_scenario_get_list(
     configuration: &configuration::Configuration,
     params: SiteScenarioGetListParams,
-) -> Result<crate::models::ScenarioCollection, Error<SiteScenarioGetListError>> {
+) -> Result<models::ScenarioCollection, Error<SiteScenarioGetListError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -225,7 +225,7 @@ pub async fn site_scenario_get_list(
 pub async fn site_scenario_update(
     configuration: &configuration::Configuration,
     params: SiteScenarioUpdateParams,
-) -> Result<crate::models::Job, Error<SiteScenarioUpdateError>> {
+) -> Result<models::Job, Error<SiteScenarioUpdateError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

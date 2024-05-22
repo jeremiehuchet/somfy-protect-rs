@@ -11,24 +11,24 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`global_testing_diagnosis`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GlobalTestingDiagnosisParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`global_testing_diagnosis_extend`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GlobalTestingDiagnosisExtendParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`global_testing_diagnosis_stop`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GlobalTestingDiagnosisStopParams {
     /// Site identifier
     pub site_id: String,
@@ -38,7 +38,7 @@ pub struct GlobalTestingDiagnosisStopParams {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GlobalTestingDiagnosisError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -46,7 +46,7 @@ pub enum GlobalTestingDiagnosisError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GlobalTestingDiagnosisExtendError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,14 +54,14 @@ pub enum GlobalTestingDiagnosisExtendError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GlobalTestingDiagnosisStopError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
 pub async fn global_testing_diagnosis(
     configuration: &configuration::Configuration,
     params: GlobalTestingDiagnosisParams,
-) -> Result<crate::models::Job, Error<GlobalTestingDiagnosisError>> {
+) -> Result<models::Job, Error<GlobalTestingDiagnosisError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -108,7 +108,7 @@ pub async fn global_testing_diagnosis(
 pub async fn global_testing_diagnosis_extend(
     configuration: &configuration::Configuration,
     params: GlobalTestingDiagnosisExtendParams,
-) -> Result<crate::models::Job, Error<GlobalTestingDiagnosisExtendError>> {
+) -> Result<models::Job, Error<GlobalTestingDiagnosisExtendError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -155,7 +155,7 @@ pub async fn global_testing_diagnosis_extend(
 pub async fn global_testing_diagnosis_stop(
     configuration: &configuration::Configuration,
     params: GlobalTestingDiagnosisStopParams,
-) -> Result<crate::models::Job, Error<GlobalTestingDiagnosisStopError>> {
+) -> Result<models::Job, Error<GlobalTestingDiagnosisStopError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

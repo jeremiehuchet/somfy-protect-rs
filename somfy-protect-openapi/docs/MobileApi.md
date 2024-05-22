@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## user_mobile_create
 
-> crate::models::Mobile user_mobile_create(user_id, mobile)
+> models::Mobile user_mobile_create(user_id, mobile)
 Provide details of mobile phone for a user
 
 ### Parameters
@@ -24,7 +24,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Mobile**](Mobile.md)
+[**models::Mobile**](Mobile.md)
 
 ### Authorization
 

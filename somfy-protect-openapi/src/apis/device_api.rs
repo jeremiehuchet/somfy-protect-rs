@@ -11,32 +11,32 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`answer_call`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct AnswerCallParams {
     /// Site identifier
     pub site_id: String,
     /// Device identifier
     pub device_id: String,
     /// WebRTC Session identifier
-    pub session_id: crate::models::WebRtcSessionInput,
+    pub session_id: models::WebRtcSessionInput,
 }
 
 /// struct for passing parameters to the method [`device_action`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceActionParams {
     /// Site identifier
     pub site_id: String,
     /// Device identifier or 'all'
     pub device_id: String,
     /// Device action
-    pub device_details: crate::models::DeviceAction,
+    pub device_details: models::DeviceAction,
 }
 
 /// struct for passing parameters to the method [`device_calibration_start`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceCalibrationStartParams {
     /// Site identifier
     pub site_id: String,
@@ -45,7 +45,7 @@ pub struct DeviceCalibrationStartParams {
 }
 
 /// struct for passing parameters to the method [`device_calibration_stop`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceCalibrationStopParams {
     /// Site identifier
     pub site_id: String,
@@ -54,7 +54,7 @@ pub struct DeviceCalibrationStopParams {
 }
 
 /// struct for passing parameters to the method [`device_get_details`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceGetDetailsParams {
     /// Site identifier
     pub site_id: String,
@@ -63,18 +63,18 @@ pub struct DeviceGetDetailsParams {
 }
 
 /// struct for passing parameters to the method [`device_homekit_installation_start`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceHomekitInstallationStartParams {
     /// Site identifier
     pub site_id: String,
     /// Model of device
     pub model: String,
     /// Options for installing the device
-    pub install_options: Option<crate::models::InstallOptionsHomeKit>,
+    pub install_options: Option<models::InstallOptionsHomeKit>,
 }
 
 /// struct for passing parameters to the method [`device_homekit_updates_get`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceHomekitUpdatesGetParams {
     /// Site identifier
     pub site_id: String,
@@ -83,29 +83,29 @@ pub struct DeviceHomekitUpdatesGetParams {
 }
 
 /// struct for passing parameters to the method [`device_installation_extend`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceInstallationExtendParams {
     /// Site identifier
     pub site_id: String,
     /// Model of device
     pub model: String,
     /// Options for extending installation
-    pub extend_options: crate::models::ExtendOptions,
+    pub extend_options: models::ExtendOptions,
 }
 
 /// struct for passing parameters to the method [`device_installation_start`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceInstallationStartParams {
     /// Site identifier
     pub site_id: String,
     /// Model of device
     pub model: String,
     /// Options for installing the device
-    pub install_options: Option<crate::models::InstallOptions>,
+    pub install_options: Option<models::InstallOptions>,
 }
 
 /// struct for passing parameters to the method [`device_installation_stop`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceInstallationStopParams {
     /// Site identifier
     pub site_id: String,
@@ -114,18 +114,18 @@ pub struct DeviceInstallationStopParams {
 }
 
 /// struct for passing parameters to the method [`device_reset`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceResetParams {
     /// Site identifier
     pub site_id: String,
     /// Device identifier
     pub device_id: String,
     /// Wifi SSID and password
-    pub wifi_credentials: Option<crate::models::WifiCredentials>,
+    pub wifi_credentials: Option<models::WifiCredentials>,
 }
 
 /// struct for passing parameters to the method [`device_reset_wifi`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceResetWifiParams {
     /// Site identifier
     pub site_id: String,
@@ -134,18 +134,18 @@ pub struct DeviceResetWifiParams {
 }
 
 /// struct for passing parameters to the method [`device_set_details`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceSetDetailsParams {
     /// Site identifier
     pub site_id: String,
     /// Device identifier
     pub device_id: String,
     /// Device details
-    pub device_details: crate::models::DeviceInput,
+    pub device_details: models::DeviceInput,
 }
 
 /// struct for passing parameters to the method [`device_sound`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceSoundParams {
     /// Site identifier
     pub site_id: String,
@@ -156,7 +156,7 @@ pub struct DeviceSoundParams {
 }
 
 /// struct for passing parameters to the method [`device_uninstall_start`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceUninstallStartParams {
     /// Site identifier
     pub site_id: String,
@@ -165,7 +165,7 @@ pub struct DeviceUninstallStartParams {
 }
 
 /// struct for passing parameters to the method [`device_uninstall_stop`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceUninstallStopParams {
     /// Site identifier
     pub site_id: String,
@@ -174,7 +174,7 @@ pub struct DeviceUninstallStopParams {
 }
 
 /// struct for passing parameters to the method [`device_update_firmware`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct DeviceUpdateFirmwareParams {
     /// Site identifier
     pub site_id: String,
@@ -183,35 +183,35 @@ pub struct DeviceUpdateFirmwareParams {
 }
 
 /// struct for passing parameters to the method [`get_compatible_devices`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GetCompatibleDevicesParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`get_installed_devices`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GetInstalledDevicesParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`get_site_lorawan_device_test`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GetSiteLorawanDeviceTestParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`gsm_backup_sms_test`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GsmBackupSmsTestParams {
     /// Site identifier
     pub site_id: String,
 }
 
 /// struct for passing parameters to the method [`mode_hkp_get_details`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct ModeHkpGetDetailsParams {
     /// Site identifier
     pub site_id: String,
@@ -220,7 +220,7 @@ pub struct ModeHkpGetDetailsParams {
 }
 
 /// struct for passing parameters to the method [`mode_hkp_update`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct ModeHkpUpdateParams {
     /// Site identifier
     pub site_id: String,
@@ -232,9 +232,9 @@ pub struct ModeHkpUpdateParams {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AnswerCallError {
-    Status400(crate::models::ApiException),
-    Status401(crate::models::ApiException),
-    Status404(crate::models::ApiException),
+    Status400(models::ApiException),
+    Status401(models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -270,7 +270,7 @@ pub enum DeviceGetDetailsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeviceHomekitInstallationStartError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -285,7 +285,7 @@ pub enum DeviceHomekitUpdatesGetError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeviceInstallationExtendError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -293,7 +293,7 @@ pub enum DeviceInstallationExtendError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeviceInstallationStartError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -308,9 +308,9 @@ pub enum DeviceInstallationStopError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeviceResetError {
-    Status400(crate::models::ApiException),
-    Status401(crate::models::ApiException),
-    Status404(crate::models::ApiException),
+    Status400(models::ApiException),
+    Status401(models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -318,9 +318,9 @@ pub enum DeviceResetError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeviceResetWifiError {
-    Status400(crate::models::ApiException),
-    Status401(crate::models::ApiException),
-    Status404(crate::models::ApiException),
+    Status400(models::ApiException),
+    Status401(models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -335,7 +335,7 @@ pub enum DeviceSetDetailsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeviceSoundError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -344,7 +344,7 @@ pub enum DeviceSoundError {
 #[serde(untagged)]
 pub enum DeviceUninstallStartError {
     Status401(),
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -359,7 +359,7 @@ pub enum DeviceUninstallStopError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeviceUpdateFirmwareError {
-    Status409(crate::models::ApiException),
+    Status409(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -381,7 +381,7 @@ pub enum GetInstalledDevicesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSiteLorawanDeviceTestError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -389,7 +389,7 @@ pub enum GetSiteLorawanDeviceTestError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GsmBackupSmsTestError {
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -411,7 +411,7 @@ pub enum ModeHkpUpdateError {
 pub async fn answer_call(
     configuration: &configuration::Configuration,
     params: AnswerCallParams,
-) -> Result<crate::models::Job, Error<AnswerCallError>> {
+) -> Result<models::Job, Error<AnswerCallError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -462,7 +462,7 @@ pub async fn answer_call(
 pub async fn device_action(
     configuration: &configuration::Configuration,
     params: DeviceActionParams,
-) -> Result<crate::models::JobCollection, Error<DeviceActionError>> {
+) -> Result<models::JobCollection, Error<DeviceActionError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -514,7 +514,7 @@ pub async fn device_action(
 pub async fn device_calibration_start(
     configuration: &configuration::Configuration,
     params: DeviceCalibrationStartParams,
-) -> Result<crate::models::Job, Error<DeviceCalibrationStartError>> {
+) -> Result<models::Job, Error<DeviceCalibrationStartError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -564,7 +564,7 @@ pub async fn device_calibration_start(
 pub async fn device_calibration_stop(
     configuration: &configuration::Configuration,
     params: DeviceCalibrationStopParams,
-) -> Result<crate::models::Job, Error<DeviceCalibrationStopError>> {
+) -> Result<models::Job, Error<DeviceCalibrationStopError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -613,7 +613,7 @@ pub async fn device_calibration_stop(
 pub async fn device_get_details(
     configuration: &configuration::Configuration,
     params: DeviceGetDetailsParams,
-) -> Result<crate::models::DeviceOutput, Error<DeviceGetDetailsError>> {
+) -> Result<models::DeviceOutput, Error<DeviceGetDetailsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -662,7 +662,7 @@ pub async fn device_get_details(
 pub async fn device_homekit_installation_start(
     configuration: &configuration::Configuration,
     params: DeviceHomekitInstallationStartParams,
-) -> Result<crate::models::Job, Error<DeviceHomekitInstallationStartError>> {
+) -> Result<models::Job, Error<DeviceHomekitInstallationStartError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -762,7 +762,7 @@ pub async fn device_homekit_updates_get(
 pub async fn device_installation_extend(
     configuration: &configuration::Configuration,
     params: DeviceInstallationExtendParams,
-) -> Result<crate::models::Job, Error<DeviceInstallationExtendError>> {
+) -> Result<models::Job, Error<DeviceInstallationExtendError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -813,7 +813,7 @@ pub async fn device_installation_extend(
 pub async fn device_installation_start(
     configuration: &configuration::Configuration,
     params: DeviceInstallationStartParams,
-) -> Result<crate::models::Job, Error<DeviceInstallationStartError>> {
+) -> Result<models::Job, Error<DeviceInstallationStartError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -864,7 +864,7 @@ pub async fn device_installation_start(
 pub async fn device_installation_stop(
     configuration: &configuration::Configuration,
     params: DeviceInstallationStopParams,
-) -> Result<crate::models::Job, Error<DeviceInstallationStopError>> {
+) -> Result<models::Job, Error<DeviceInstallationStopError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -913,7 +913,7 @@ pub async fn device_installation_stop(
 pub async fn device_reset(
     configuration: &configuration::Configuration,
     params: DeviceResetParams,
-) -> Result<crate::models::Reset, Error<DeviceResetError>> {
+) -> Result<models::Reset, Error<DeviceResetError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -964,7 +964,7 @@ pub async fn device_reset(
 pub async fn device_reset_wifi(
     configuration: &configuration::Configuration,
     params: DeviceResetWifiParams,
-) -> Result<crate::models::Reset, Error<DeviceResetWifiError>> {
+) -> Result<models::Reset, Error<DeviceResetWifiError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1013,7 +1013,7 @@ pub async fn device_reset_wifi(
 pub async fn device_set_details(
     configuration: &configuration::Configuration,
     params: DeviceSetDetailsParams,
-) -> Result<crate::models::Job, Error<DeviceSetDetailsError>> {
+) -> Result<models::Job, Error<DeviceSetDetailsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1064,7 +1064,7 @@ pub async fn device_set_details(
 pub async fn device_sound(
     configuration: &configuration::Configuration,
     params: DeviceSoundParams,
-) -> Result<crate::models::Job, Error<DeviceSoundError>> {
+) -> Result<models::Job, Error<DeviceSoundError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1115,7 +1115,7 @@ pub async fn device_sound(
 pub async fn device_uninstall_start(
     configuration: &configuration::Configuration,
     params: DeviceUninstallStartParams,
-) -> Result<crate::models::Job, Error<DeviceUninstallStartError>> {
+) -> Result<models::Job, Error<DeviceUninstallStartError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1164,7 +1164,7 @@ pub async fn device_uninstall_start(
 pub async fn device_uninstall_stop(
     configuration: &configuration::Configuration,
     params: DeviceUninstallStopParams,
-) -> Result<crate::models::Job, Error<DeviceUninstallStopError>> {
+) -> Result<models::Job, Error<DeviceUninstallStopError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1213,7 +1213,7 @@ pub async fn device_uninstall_stop(
 pub async fn device_update_firmware(
     configuration: &configuration::Configuration,
     params: DeviceUpdateFirmwareParams,
-) -> Result<crate::models::Job, Error<DeviceUpdateFirmwareError>> {
+) -> Result<models::Job, Error<DeviceUpdateFirmwareError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1262,7 +1262,7 @@ pub async fn device_update_firmware(
 pub async fn get_compatible_devices(
     configuration: &configuration::Configuration,
     params: GetCompatibleDevicesParams,
-) -> Result<crate::models::DeviceCompatibilityCollection, Error<GetCompatibleDevicesError>> {
+) -> Result<models::DeviceCompatibilityCollection, Error<GetCompatibleDevicesError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1309,7 +1309,7 @@ pub async fn get_compatible_devices(
 pub async fn get_installed_devices(
     configuration: &configuration::Configuration,
     params: GetInstalledDevicesParams,
-) -> Result<crate::models::DeviceCollection, Error<GetInstalledDevicesError>> {
+) -> Result<models::DeviceCollection, Error<GetInstalledDevicesError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1450,7 +1450,7 @@ pub async fn gsm_backup_sms_test(
 pub async fn mode_hkp_get_details(
     configuration: &configuration::Configuration,
     params: ModeHkpGetDetailsParams,
-) -> Result<crate::models::HkpMode, Error<ModeHkpGetDetailsError>> {
+) -> Result<models::HkpMode, Error<ModeHkpGetDetailsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1499,7 +1499,7 @@ pub async fn mode_hkp_get_details(
 pub async fn mode_hkp_update(
     configuration: &configuration::Configuration,
     params: ModeHkpUpdateParams,
-) -> Result<crate::models::Job, Error<ModeHkpUpdateError>> {
+) -> Result<models::Job, Error<ModeHkpUpdateError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

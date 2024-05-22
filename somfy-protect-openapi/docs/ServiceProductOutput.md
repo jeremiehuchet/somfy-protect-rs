@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**devices** | [**crate::models::DeviceOutputMinimal**](DeviceOutputMinimal.md) |  | 
+**devices** | [**models::DeviceOutputMinimal**](DeviceOutputMinimal.md) |  | 
 **currency** | **String** | Currency code. | 
 **prices** | **Vec<i32>** | List of prices. | 
 **product_id** | Option<**String**> | Product identifier. | [optional]

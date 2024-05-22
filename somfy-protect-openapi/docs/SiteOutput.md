@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **site_id** | **String** | Site identifier. | 
 **security_level** | **String** | Site security level. | 
-**invitation** | [**crate::models::SiteInvitationOutput**](SiteInvitationOutput.md) |  | 
-**alarm** | [**crate::models::SiteAlarm**](SiteAlarm.md) |  | 
-**diagnosis** | Option<[**crate::models::SiteDiagnosis**](SiteDiagnosis.md)> |  | [optional]
+**invitation** | [**models::SiteInvitationOutput**](SiteInvitationOutput.md) |  | 
+**alarm** | [**models::SiteAlarm**](SiteAlarm.md) |  | 
+**diagnosis** | Option<[**models::SiteDiagnosis**](SiteDiagnosis.md)> |  | [optional]
 **install_completed** | Option<**bool**> | Install completed flag. | [optional]
 **brand** | Option<[**serde_json::Value**](.md)> | Brand. | [optional]
 **restoration_active** | **bool** | Is a Plug configuration currently being backed up? | 
@@ -20,9 +20,9 @@ Name | Type | Description | Notes
 **axa_it_phone_number** | Option<**String**> | Axa IT phone number. | [optional]
 **axa_it_phone_number_displayed** | Option<**String**> | Axa IT phone number formatted. | [optional]
 **features** | Option<**Vec<String>**> | Features enabled. | [optional]
-**domestic_alarm_output_collection** | Option<[**crate::models::DomesticAlarmOutputCollection**](DomesticAlarmOutputCollection.md)> |  | [optional]
+**domestic_alarm_output_collection** | Option<[**models::DomesticAlarmOutputCollection**](DomesticAlarmOutputCollection.md)> |  | [optional]
 **bundle_type** | Option<**String**> | Bundle type for  ILO. | [optional][default to Home]
-**services** | [**crate::models::SiteServicesOutput**](SiteServicesOutput.md) |  | 
+**services** | [**models::SiteServicesOutput**](SiteServicesOutput.md) |  | 
 **label** | Option<**String**> | Site label. | [optional]
 **services_version** | Option<**i32**> | Site Services Version. | [optional]
 **subscription_active** | Option<**bool**> | Is site subscription active. | [optional]

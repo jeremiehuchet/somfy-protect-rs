@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## get_user_info
 
-> crate::models::UserOutputWithSites get_user_info(user_id)
+> models::UserOutputWithSites get_user_info(user_id)
 Get user information
 
 ### Parameters
@@ -24,7 +24,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::UserOutputWithSites**](UserOutputWithSites.md)
+[**models::UserOutputWithSites**](UserOutputWithSites.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ No authorization required
 
 ## update_site_user_location
 
-> crate::models::LocationOutput update_site_user_location(site_id, user_id, location)
+> models::LocationOutput update_site_user_location(site_id, user_id, location)
 Send location information to a link between a site and an user
 
 ### Parameters
@@ -84,7 +84,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::LocationOutput**](LocationOutput.md)
+[**models::LocationOutput**](LocationOutput.md)
 
 ### Authorization
 

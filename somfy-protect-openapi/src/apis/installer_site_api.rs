@@ -11,21 +11,21 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`site_installer_add`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteInstallerAddParams {
     /// Site identifier
     pub site_id: String,
     /// Access token
     pub access_token: String,
     /// User email
-    pub email: crate::models::SiteInstallerAddRequest,
+    pub email: models::SiteInstallerAddRequest,
 }
 
 /// struct for passing parameters to the method [`site_installer_delete`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteInstallerDeleteParams {
     /// Site identifier
     pub site_id: String,
@@ -34,7 +34,7 @@ pub struct SiteInstallerDeleteParams {
     /// Access token
     pub access_token: String,
     /// Password to check.
-    pub password: crate::models::SiteInstallerDeleteRequest,
+    pub password: models::SiteInstallerDeleteRequest,
 }
 
 /// struct for typed errors of method [`site_installer_add`]
@@ -54,7 +54,7 @@ pub enum SiteInstallerDeleteError {
 pub async fn site_installer_add(
     configuration: &configuration::Configuration,
     params: SiteInstallerAddParams,
-) -> Result<crate::models::UserOutput, Error<SiteInstallerAddError>> {
+) -> Result<models::UserOutput, Error<SiteInstallerAddError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

@@ -11,24 +11,24 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`site_invitation_answer`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteInvitationAnswerParams {
     /// Security token
     pub security_token: String,
     /// Invitation answer details
-    pub answer: crate::models::SiteInvitationAnswer,
+    pub answer: models::SiteInvitationAnswer,
 }
 
 /// struct for passing parameters to the method [`site_invitation_send`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct SiteInvitationSendParams {
     /// Site identifier
     pub site_id: String,
     /// Invitation details
-    pub invitation: crate::models::SiteInvitationRequest,
+    pub invitation: models::SiteInvitationRequest,
 }
 
 /// struct for typed errors of method [`site_invitation_answer`]
@@ -36,7 +36,7 @@ pub struct SiteInvitationSendParams {
 #[serde(untagged)]
 pub enum SiteInvitationAnswerError {
     Status400(),
-    Status404(crate::models::ApiException),
+    Status404(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -44,8 +44,8 @@ pub enum SiteInvitationAnswerError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SiteInvitationSendError {
-    Status404(crate::models::ApiException),
-    Status400(crate::models::ApiException),
+    Status404(models::ApiException),
+    Status400(models::ApiException),
     UnknownValue(serde_json::Value),
 }
 
@@ -96,7 +96,7 @@ pub async fn site_invitation_answer(
 pub async fn site_invitation_send(
     configuration: &configuration::Configuration,
     params: SiteInvitationSendParams,
-) -> Result<crate::models::UserOutput, Error<SiteInvitationSendError>> {
+) -> Result<models::UserOutput, Error<SiteInvitationSendError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters

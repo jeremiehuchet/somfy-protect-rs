@@ -11,10 +11,10 @@
 use reqwest;
 
 use super::{configuration, Error};
-use crate::apis::ResponseContent;
+use crate::{apis::ResponseContent, models};
 
 /// struct for passing parameters to the method [`ilo_to_somfy_protect`]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct IloToSomfyProtectParams {
     /// Site identifier
     pub site_id: String,
