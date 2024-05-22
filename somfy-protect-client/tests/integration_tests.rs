@@ -1,142 +1,144 @@
 use reqwest::{header::CONTENT_TYPE, Client};
 use serde_json::Value;
 use somfy_protect_client::{
-    client::SomfyProtectClientBuilder, websocket::SomfyWebsocketClientBuilder,
+    client::{SomfyProtectClient, SomfyProtectClientBuilder},
+    websocket::SomfyWebsocketClientBuilder,
 };
-use test_context::AsyncTestContext;
-use testcontainer::SomfyMockContainer;
+use testcontainers_modules::testcontainers::{
+    core::WaitFor, runners::AsyncRunner, ContainerAsync, GenericImage,
+};
 
-mod testcontainer;
-
-struct SomfyContext {
-    mock: SomfyMockContainer,
-    server_port: u16,
+async fn start_somfy_mock() -> ContainerAsync<GenericImage> {
+    GenericImage::new("somfy-protect-api-mock", "latest")
+        .with_exposed_port(3000)
+        .with_wait_for(WaitFor::StdOutMessage {
+            message: String::from("Somfy Protect API mock listening on port 3000"),
+        })
+        .start()
+        .await
 }
 
-impl SomfyContext {
-    fn somfy_client_for_mock(&self) -> SomfyProtectClientBuilder {
-        SomfyProtectClientBuilder::default()
-            .with_auth_base_url(format!("http://127.0.0.1:{}/auth", self.server_port))
-            .with_api_base_url(format!("http://127.0.0.1:{}/api", self.server_port))
-            .with_client_credentials("somfy".to_string(), "somfy secret".to_string())
-            .with_user_credentials("user@somfy.com".to_string(), "user password".to_string())
-    }
+async fn client_for(container: &ContainerAsync<GenericImage>) -> SomfyProtectClient {
+    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    SomfyProtectClientBuilder::default()
+        .with_auth_base_url(format!("http://127.0.0.1:{listening_port}/auth",))
+        .with_api_base_url(format!("http://127.0.0.1:{listening_port}/api",))
+        .with_client_credentials("somfy", "somfy secret")
+        .with_user_credentials("user@somfy.com", "user password")
+        .build()
+}
 
-    fn somfy_websocket_for_mock(&self) -> SomfyWebsocketClientBuilder {
-        SomfyWebsocketClientBuilder::default()
-            .with_url(format!("ws://127.0.0.1:{}/websocket", self.server_port))
-    }
+async fn websocket_for(container: &ContainerAsync<GenericImage>) -> SomfyWebsocketClientBuilder {
+    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    SomfyWebsocketClientBuilder::default()
+        .with_url(format!("ws://127.0.0.1:{listening_port}/websocket"))
+}
 
-    async fn assert_mock_invocation_count(&self, feature: &str, expected_count: u32) {
-        let http_client = Client::builder().build().expect("an http client");
-        let request = http_client
-            .get(format!(
-                "http://127.0.0.1:{}/mock/{feature}",
-                self.server_port
-            ))
-            .build()
-            .unwrap();
-        let actual_count: u32 = http_client
-            .execute(request)
-            .await
-            .unwrap()
-            .text()
-            .await
-            .unwrap()
-            .as_str()
-            .parse()
-            .unwrap();
+async fn assert_mock_invocation_count(
+    container: &ContainerAsync<GenericImage>,
+    feature: &str,
+    expected_count: u32,
+) {
+    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    let http_client = Client::builder().build().expect("an http client");
+    let request = http_client
+        .get(format!("http://127.0.0.1:{listening_port}/mock/{feature}"))
+        .build()
+        .unwrap();
+    let actual_count: u32 = http_client
+        .execute(request)
+        .await
+        .unwrap()
+        .text()
+        .await
+        .unwrap()
+        .as_str()
+        .parse()
+        .unwrap();
+    assert_eq!(
+        actual_count, expected_count,
+        "expecting {expected_count} {feature}"
+    );
+}
+
+async fn given_websocket_server_will_send(
+    container: &ContainerAsync<GenericImage>,
+    messages: Vec<&str>,
+) {
+    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    let http_client = Client::builder().build().expect("an http client");
+    let request = http_client
+        .put(format!(
+            "http://127.0.0.1:{listening_port}/mock/ws-messages-to-send"
+        ))
+        .header(CONTENT_TYPE, "application/json")
+        .body(format!("[{}]", messages.join(",")))
+        .build()
+        .unwrap();
+    let response = http_client.execute(request).await.unwrap();
+    assert_eq!(response.status(), 200, "mock messages successfully set")
+}
+
+async fn assert_server_received_acks(
+    container: &ContainerAsync<GenericImage>,
+    expected_acks: &[&str],
+) {
+    let expected_messages = expected_acks
+        .iter()
+        .map(|message_id| {
+            format!(r#"{{"ack":true,"message_id":"{message_id}","client":"Android"}}"#)
+        })
+        .collect();
+    assert_server_received_messages(container, expected_messages).await;
+}
+
+async fn assert_server_received_messages(
+    container: &ContainerAsync<GenericImage>,
+    expected_messages: Vec<String>,
+) {
+    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    tokio::time::sleep(tokio::time::Duration::from_millis(200)).await;
+    let http_client = Client::builder().build().expect("an http client");
+    let request = http_client
+        .get(format!(
+            "http://127.0.0.1:{listening_port}/mock/ws-messages-received"
+        ))
+        .build()
+        .unwrap();
+    let received_messages = http_client
+        .execute(request)
+        .await
+        .unwrap()
+        .json::<Value>()
+        .await
+        .unwrap()
+        .as_array()
+        .unwrap()
+        .clone();
+
+    for expected_message in expected_messages {
+        let expected_message: Value = serde_json::from_str(&expected_message).unwrap();
         assert_eq!(
-            actual_count, expected_count,
-            "expecting {expected_count} {feature}"
+            received_messages.contains(&expected_message),
+            true,
+            r#"
+            missing message: {expected_message:?}
+            in list: {received_messages:?}
+            "#
         );
-    }
-
-    async fn given_websocket_server_will_send<'d>(&self, messages: Vec<&str>) {
-        let http_client = Client::builder().build().expect("an http client");
-        let request = http_client
-            .put(format!(
-                "http://127.0.0.1:{}/mock/ws-messages-to-send",
-                self.server_port
-            ))
-            .header(CONTENT_TYPE, "application/json")
-            .body(format!("[{}]", messages.join(",")))
-            .build()
-            .unwrap();
-        let response = http_client.execute(request).await.unwrap();
-        assert_eq!(response.status(), 200, "mock messages successfully set")
-    }
-
-    async fn assert_server_received_acks(&self, expected_acks: &[&str]) {
-        let expected_messages = expected_acks
-            .iter()
-            .map(|message_id| {
-                format!(r#"{{"ack":true,"message_id":"{message_id}","client":"Android"}}"#)
-            })
-            .collect();
-        self.assert_server_received_messages(expected_messages)
-            .await;
-    }
-
-    async fn assert_server_received_messages(&self, expected_messages: Vec<String>) {
-        tokio::time::sleep(tokio::time::Duration::from_millis(200)).await;
-        let http_client = Client::builder().build().expect("an http client");
-        let request = http_client
-            .get(format!(
-                "http://127.0.0.1:{}/mock/ws-messages-received",
-                self.server_port
-            ))
-            .build()
-            .unwrap();
-        let received_messages = http_client
-            .execute(request)
-            .await
-            .unwrap()
-            .json::<Value>()
-            .await
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .clone();
-
-        for expected_message in expected_messages {
-            let expected_message: Value = serde_json::from_str(&expected_message).unwrap();
-            assert_eq!(
-                received_messages.contains(&expected_message),
-                true,
-                r#"
-                missing message: {expected_message:?}
-                in list: {received_messages:?}
-                "#
-            );
-        }
-    }
-}
-
-#[async_trait::async_trait]
-impl AsyncTestContext for SomfyContext {
-    async fn setup() -> SomfyContext {
-        let mock = SomfyMockContainer::new().await.start().await;
-        let server_port = mock.get_server_port().await;
-        SomfyContext { mock, server_port }
-    }
-
-    async fn teardown(self) {
-        self.mock.stop().await.unwrap();
     }
 }
 
 mod api {
     use somfy_protect_openapi::models::site_alarm::Status;
     use somfy_protect_openapi::models::site_output::SecurityLevel;
-    use test_context::test_context;
 
-    use crate::SomfyContext;
+    use crate::{assert_mock_invocation_count, client_for, start_somfy_mock};
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_list_sites(ctx: &mut SomfyContext) {
-        let client = ctx.somfy_client_for_mock().build();
+    async fn can_list_sites() {
+        let container = start_somfy_mock().await;
+        let client = client_for(&container).await;
 
         let sites = client.list_sites().await.unwrap();
         assert_eq!(sites.len(), 1, "expect 1 site id");
@@ -151,10 +153,10 @@ mod api {
         assert_eq!(site.alarm.status, Status::None, "alarm status");
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_list_devices(ctx: &mut SomfyContext) {
-        let client = ctx.somfy_client_for_mock().build();
+    async fn can_list_devices() {
+        let container = start_somfy_mock().await;
+        let client = client_for(&container).await;
 
         let devices = client
             .list_devices("Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT".to_string())
@@ -180,10 +182,10 @@ mod api {
         );
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn should_refresh_access_token(ctx: &mut SomfyContext) {
-        let client = ctx.somfy_client_for_mock().build();
+    async fn should_refresh_access_token() {
+        let container = start_somfy_mock().await;
+        let client = client_for(&container).await;
 
         // should execute exchange password
         let sites = client.list_sites().await.unwrap();
@@ -193,10 +195,8 @@ mod api {
             vec!["Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT"],
             "expect 1 site id"
         );
-        ctx.assert_mock_invocation_count("exchange-password-count", 1)
-            .await;
-        ctx.assert_mock_invocation_count("refresh-token-count", 0)
-            .await;
+        assert_mock_invocation_count(&container, "exchange-password-count", 1).await;
+        assert_mock_invocation_count(&container, "refresh-token-count", 0).await;
 
         // should execute refresh token
         let sites = client.list_sites().await.unwrap();
@@ -206,10 +206,8 @@ mod api {
             vec!["Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT"],
             "expect 1 site id"
         );
-        ctx.assert_mock_invocation_count("exchange-password-count", 1)
-            .await;
-        ctx.assert_mock_invocation_count("refresh-token-count", 1)
-            .await;
+        assert_mock_invocation_count(&container, "exchange-password-count", 1).await;
+        assert_mock_invocation_count(&container, "refresh-token-count", 1).await;
 
         // should execute refresh token
         let sites = client.list_sites().await.unwrap();
@@ -219,17 +217,14 @@ mod api {
             vec!["Szr5IxqYraaPqh2FFGNms2BQUT0R0hNT"],
             "expect 1 site id"
         );
-        ctx.assert_mock_invocation_count("exchange-password-count", 1)
-            .await;
-        ctx.assert_mock_invocation_count("refresh-token-count", 2)
-            .await;
+        assert_mock_invocation_count(&container, "exchange-password-count", 1).await;
+        assert_mock_invocation_count(&container, "refresh-token-count", 2).await;
     }
 }
 
 mod websocket {
     use std::collections::HashMap;
 
-    use crate::SomfyContext;
     use anyhow::Error;
 
     use futures_util::StreamExt;
@@ -238,7 +233,11 @@ mod websocket {
         AlarmDetails, Diagnosis, EventData, EventMessage, SecurityLevel, SiteDiagnosis,
     };
     use somfy_protect_openapi::models::site_diagnosis::MainStatus;
-    use test_context::test_context;
+
+    use crate::{
+        assert_server_received_acks, given_websocket_server_will_send, start_somfy_mock,
+        websocket_for,
+    };
 
     async fn assert_event_sequence(
         stream: impl StreamExt<Item = Result<EventMessage, Error>>,
@@ -274,11 +273,11 @@ mod websocket {
         }
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_open_and_close_connection(ctx: &mut SomfyContext) {
-        let (connection, event_stream) = ctx
-            .somfy_websocket_for_mock()
+    async fn can_open_and_close_connection() {
+        let container = start_somfy_mock().await;
+        let (connection, event_stream) = websocket_for(&container)
+            .await
             .connect(AccessToken::new("valid-token".into()))
             .await
             .unwrap();
@@ -292,11 +291,13 @@ mod websocket {
         connection.close().await.unwrap();
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_receive_device_status_events(ctx: &mut SomfyContext) {
-        ctx.given_websocket_server_will_send(vec![
-            r#"
+    async fn can_receive_device_status_events() {
+        let container = start_somfy_mock().await;
+        given_websocket_server_will_send(
+            &container,
+            vec![
+                r#"
             {
               "profiles": [
                 "admin",
@@ -321,7 +322,7 @@ mod websocket {
               "message_id":             "message_id_d1"
             }
             "#,
-            r#"
+                r#"
             {
               "profiles": [
                 "admin",
@@ -346,11 +347,12 @@ mod websocket {
               "message_id":             "message_id_d2"
             }
             "#,
-        ])
+            ],
+        )
         .await;
 
-        let (connection, event_stream) = ctx
-            .somfy_websocket_for_mock()
+        let (connection, event_stream) = websocket_for(&container)
+            .await
             .connect(AccessToken::new("valid-token".into()))
             .await
             .unwrap();
@@ -414,17 +416,18 @@ mod websocket {
         )
         .await;
 
-        ctx.assert_server_received_acks(&["message_id_d1", "message_id_d2"])
-            .await;
+        assert_server_received_acks(&container, &["message_id_d1", "message_id_d2"]).await;
 
         connection.close().await.unwrap();
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_receive_site_device_testing_status_events(ctx: &mut SomfyContext) {
-        ctx.given_websocket_server_will_send(vec![
-            r#"
+    async fn can_receive_site_device_testing_status_events() {
+        let container = start_somfy_mock().await;
+        given_websocket_server_will_send(
+            &container,
+            vec![
+                r#"
             {
               "profiles": [
                 "admin",
@@ -445,11 +448,12 @@ mod websocket {
               "message_id":                   "message_id_dts1"
             }
             "#,
-        ])
+            ],
+        )
         .await;
 
-        let (connection, event_stream) = ctx
-            .somfy_websocket_for_mock()
+        let (connection, event_stream) = websocket_for(&container)
+            .await
             .connect(AccessToken::new("valid-token".into()))
             .await
             .unwrap();
@@ -481,16 +485,18 @@ mod websocket {
         )
         .await;
 
-        ctx.assert_server_received_acks(&["message_id_dts1"]).await;
+        assert_server_received_acks(&container, &["message_id_dts1"]).await;
 
         connection.close().await.unwrap();
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_receive_can_receive_alarm_security_level_events(ctx: &mut SomfyContext) {
-        ctx.given_websocket_server_will_send(vec![
-            r#"
+    async fn can_receive_can_receive_alarm_security_level_events() {
+        let container = start_somfy_mock().await;
+        given_websocket_server_will_send(
+            &container,
+            vec![
+                r#"
             {
               "profiles": [
                   "owner",
@@ -505,7 +511,7 @@ mod websocket {
               "message_id":     "message_id_armed"
             }
             "#,
-            r#"
+                r#"
             {
               "profiles": [
                   "owner",
@@ -520,7 +526,7 @@ mod websocket {
               "message_id":     "message_id_disarmed"
             }
             "#,
-            r#"
+                r#"
             {
               "profiles": [
                   "owner",
@@ -535,11 +541,12 @@ mod websocket {
               "message_id":     "message_id_partial"
             }
             "#,
-        ])
+            ],
+        )
         .await;
 
-        let (connection, event_stream) = ctx
-            .somfy_websocket_for_mock()
+        let (connection, event_stream) = websocket_for(&container)
+            .await
             .connect(AccessToken::new("valid-token".into()))
             .await
             .unwrap();
@@ -576,21 +583,26 @@ mod websocket {
         )
         .await;
 
-        ctx.assert_server_received_acks(&[
-            "message_id_armed",
-            "message_id_disarmed",
-            "message_id_partial",
-        ])
+        assert_server_received_acks(
+            &container,
+            &[
+                "message_id_armed",
+                "message_id_disarmed",
+                "message_id_partial",
+            ],
+        )
         .await;
 
         connection.close().await.unwrap();
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_receive_presence_events(ctx: &mut SomfyContext) {
-        ctx.given_websocket_server_will_send(vec![
-            r#"
+    async fn can_receive_presence_events() {
+        let container = start_somfy_mock().await;
+        given_websocket_server_will_send(
+            &container,
+            vec![
+                r#"
             {
               "profiles": [
                 "owner",
@@ -605,7 +617,7 @@ mod websocket {
               "message_id": "message_id_a"
             }
             "#,
-            r#"
+                r#"
             {
               "profiles": [
                 "owner",
@@ -620,11 +632,12 @@ mod websocket {
               "message_id": "message_id_b"
             }
             "#,
-        ])
+            ],
+        )
         .await;
 
-        let (connection, event_stream) = ctx
-            .somfy_websocket_for_mock()
+        let (connection, event_stream) = websocket_for(&container)
+            .await
             .connect(AccessToken::new("valid-token".into()))
             .await
             .unwrap();
@@ -648,17 +661,18 @@ mod websocket {
         )
         .await;
 
-        ctx.assert_server_received_acks(&["message_id_a", "message_id_b"])
-            .await;
+        assert_server_received_acks(&container, &["message_id_a", "message_id_b"]).await;
 
         connection.close().await.unwrap();
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_receive_alarm_trespass_events(ctx: &mut SomfyContext) {
-        ctx.given_websocket_server_will_send(vec![
-            r#"
+    async fn can_receive_alarm_trespass_events() {
+        let container = start_somfy_mock().await;
+        given_websocket_server_will_send(
+            &container,
+            vec![
+                r#"
             {
               "profiles": [
                 "owner",
@@ -680,11 +694,12 @@ mod websocket {
               "message_id":     "message_id_trespass"
             }
             "#,
-        ])
+            ],
+        )
         .await;
 
-        let (connection, event_stream) = ctx
-            .somfy_websocket_for_mock()
+        let (connection, event_stream) = websocket_for(&container)
+            .await
             .connect(AccessToken::new("valid-token".into()))
             .await
             .unwrap();
@@ -713,17 +728,18 @@ mod websocket {
         )
         .await;
 
-        ctx.assert_server_received_acks(&["message_id_trespass"])
-            .await;
+        assert_server_received_acks(&container, &["message_id_trespass"]).await;
 
         connection.close().await.unwrap();
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_receive_alarm_panic_events(ctx: &mut SomfyContext) {
-        ctx.given_websocket_server_will_send(vec![
-            r#"
+    async fn can_receive_alarm_panic_events() {
+        let container = start_somfy_mock().await;
+        given_websocket_server_will_send(
+            &container,
+            vec![
+                r#"
             {
               "profiles": [
                 "owner",
@@ -745,11 +761,12 @@ mod websocket {
               "message_id":     "message_id_panic"
             }
             "#,
-        ])
+            ],
+        )
         .await;
 
-        let (connection, event_stream) = ctx
-            .somfy_websocket_for_mock()
+        let (connection, event_stream) = websocket_for(&container)
+            .await
             .connect(AccessToken::new("valid-token".into()))
             .await
             .unwrap();
@@ -778,16 +795,18 @@ mod websocket {
         )
         .await;
 
-        ctx.assert_server_received_acks(&["message_id_panic"]).await;
+        assert_server_received_acks(&container, &["message_id_panic"]).await;
 
         connection.close().await.unwrap();
     }
 
-    #[test_context(SomfyContext)]
     #[tokio::test]
-    async fn can_receive_alarm_end_events(ctx: &mut SomfyContext) {
-        ctx.given_websocket_server_will_send(vec![
-            r#"
+    async fn can_receive_alarm_end_events() {
+        let container = start_somfy_mock().await;
+        given_websocket_server_will_send(
+            &container,
+            vec![
+                r#"
             {
               "profiles": [
                 "owner",
@@ -807,11 +826,12 @@ mod websocket {
               "message_id":         "message_id_end"
             }
             "#,
-        ])
+            ],
+        )
         .await;
 
-        let (connection, event_stream) = ctx
-            .somfy_websocket_for_mock()
+        let (connection, event_stream) = websocket_for(&container)
+            .await
             .connect(AccessToken::new("valid-token".into()))
             .await
             .unwrap();
@@ -838,7 +858,7 @@ mod websocket {
         )
         .await;
 
-        ctx.assert_server_received_acks(&["message_id_end"]).await;
+        assert_server_received_acks(&container, &["message_id_end"]).await;
 
         connection.close().await.unwrap();
     }

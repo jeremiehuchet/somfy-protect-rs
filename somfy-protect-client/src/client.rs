@@ -30,23 +30,27 @@ pub struct SomfyProtectClientBuilder {
 }
 
 impl SomfyProtectClientBuilder {
-    pub fn with_auth_base_url(mut self, base_url: String) -> Self {
-        self.auth_base_url = Some(base_url);
+    pub fn with_auth_base_url<S: Into<String>>(mut self, base_url: S) -> Self {
+        self.auth_base_url = Some(base_url.into());
         self
     }
 
-    pub fn with_api_base_url(mut self, base_url: String) -> Self {
-        self.api_base_url = Some(base_url);
+    pub fn with_api_base_url<S: Into<String>>(mut self, base_url: S) -> Self {
+        self.api_base_url = Some(base_url.into());
         self
     }
 
-    pub fn with_client_credentials(mut self, client_id: String, client_secret: String) -> Self {
-        self.client_credentials = Some((client_id, client_secret));
+    pub fn with_client_credentials<S: Into<String>>(
+        mut self,
+        client_id: S,
+        client_secret: S,
+    ) -> Self {
+        self.client_credentials = Some((client_id.into(), client_secret.into()));
         self
     }
 
-    pub fn with_user_credentials(mut self, username: String, password: String) -> Self {
-        self.user_credentials = Some((username, password));
+    pub fn with_user_credentials<S: Into<String>>(mut self, username: S, password: S) -> Self {
+        self.user_credentials = Some((username.into(), password.into()));
         self
     }
 

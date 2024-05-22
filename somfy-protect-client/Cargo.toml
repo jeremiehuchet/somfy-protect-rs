@@ -26,6 +26,5 @@ url = "2.2"
 
 [dev-dependencies]
 httpmock = "0.7"
-docker-api = "0.14"
-test-context = "0.1"
+testcontainers-modules = "0.4"
 tokio = "1.28"
