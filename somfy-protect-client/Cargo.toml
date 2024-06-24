@@ -14,7 +14,7 @@ futures-util = { version = "0.3", default-features = false, features = ["sink", 
 log = "0.4"
 oauth2 = "4.3"
 reqwest = { version = "0.11", features = ["json"] }
-reqwest-middleware = "0.2"
+reqwest-middleware = "0.3"
 serde = "1.0"
 serde_derive = "1.0"
 serde_json = "1.0"
