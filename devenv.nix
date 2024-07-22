@@ -1,8 +1,15 @@
 { pkgs, ... }:
 
-{
+let openapi-generator-cli-7_6_0 = pkgs.openapi-generator-cli.overrideAttrs (finalAttrs: previousAttrs: {
+    version = "7.6.0";
+    src = pkgs.fetchurl {
+      url = "mirror://maven/org/openapitools/${finalAttrs.pname}/${finalAttrs.version}/${finalAttrs.jarfilename}";
+      sha256 = "sha256-NQdL3TzfxGvpqQLhGlSj+qPK4eNOtmy9lZ0cgHC719c=";
+    };
+  });
+in {
   packages = [
-    pkgs.openapi-generator-cli
+    openapi-generator-cli-7_6_0
     pkgs.openssl
     pkgs.pkg-config
     pkgs.vscode

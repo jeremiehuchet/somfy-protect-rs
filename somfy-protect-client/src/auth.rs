@@ -4,14 +4,14 @@ use std::{
 };
 
 use async_trait::async_trait;
+use http::Extensions;
 use log::{debug, warn};
 use oauth2::{
     ClientId, ClientSecret, RefreshToken, RequestTokenError, ResourceOwnerPassword,
     ResourceOwnerUsername, TokenResponse,
 };
-use reqwest::{header::AUTHORIZATION, Request, Response};
-use reqwest_middleware::{Middleware, Next, Result};
-use task_local_extensions::Extensions;
+use reqwest::{header::AUTHORIZATION, Client, Request, Response};
+use reqwest_middleware::{ClientBuilder, ClientWithMiddleware, Middleware, Next, Result};
 
 use self::somfy_oauth2::{OAuth2TokenResponse, SomfyOAuth2Client};
 
@@ -19,6 +19,7 @@ const AUTH_BASE_URL: &str = "https://accounts.somfy.com/oauth/oauth/v2";
 const AUTH_TIME_DRIFT: Duration = Duration::from_secs(30);
 
 pub(crate) struct SomfyAuthMiddlewareBuilder {
+    http_client: Option<ClientWithMiddleware>,
     base_url: Option<String>,
     client_credentials: Option<(ClientId, ClientSecret)>,
     user_credentials: Option<(ResourceOwnerUsername, ResourceOwnerPassword)>,
@@ -27,6 +28,7 @@ pub(crate) struct SomfyAuthMiddlewareBuilder {
 impl Default for SomfyAuthMiddlewareBuilder {
     fn default() -> Self {
         Self {
+            http_client: None,
             base_url: Some(AUTH_BASE_URL.to_string()),
             client_credentials: None,
             user_credentials: None,
@@ -59,11 +61,14 @@ impl SomfyAuthMiddlewareBuilder {
     }
 
     pub(crate) fn build(self) -> SomfyAuthMiddleware {
+        let http_client = self
+            .http_client
+            .unwrap_or_else(|| ClientBuilder::new(Client::default()).build());
         let (client_id, client_secret) = self
             .client_credentials
             .expect("Client credentials are missing");
         let base_url = self.base_url.expect("Authentication base URL is missing");
-        let oauth2_client = SomfyOAuth2Client::new(base_url, client_id, client_secret);
+        let oauth2_client = SomfyOAuth2Client::new(http_client, base_url, client_id, client_secret);
         let (username, password) = self.user_credentials.expect("User credentials are missing");
         let somfy_auth = SomfyAuth::new(username, password);
         SomfyAuthMiddleware {
@@ -351,12 +356,17 @@ mod tests {
 }
 
 mod somfy_oauth2 {
+
+    use std::str::FromStr;
+
     use oauth2::{
         basic::{BasicClient, BasicErrorResponseType, BasicTokenType},
-        AuthUrl, ClientId, ClientSecret, EmptyExtraTokenFields, RefreshToken, RequestTokenError,
-        ResourceOwnerPassword, ResourceOwnerUsername, StandardErrorResponse, StandardTokenResponse,
-        TokenUrl,
+        http::StatusCode,
+        AuthUrl, ClientId, ClientSecret, EmptyExtraTokenFields, HttpRequest, HttpResponse,
+        RefreshToken, RequestTokenError, ResourceOwnerPassword, ResourceOwnerUsername,
+        StandardErrorResponse, StandardTokenResponse, TokenUrl,
     };
+    use reqwest_middleware::ClientWithMiddleware;
 
     pub(super) type OAuth2TokenResponse =
         StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType>;
@@ -367,11 +377,13 @@ mod somfy_oauth2 {
 
     #[derive(Clone, Debug)]
     pub(super) struct SomfyOAuth2Client {
+        http_client: ClientWithMiddleware,
         oauth2_client: BasicClient,
     }
 
     impl SomfyOAuth2Client {
         pub(super) fn new(
+            http_client: ClientWithMiddleware,
             base_url: String,
             client_id: ClientId,
             client_secret: ClientSecret,
@@ -385,17 +397,20 @@ mod somfy_oauth2 {
                     TokenUrl::new(format!("{base_url}/token")).expect("Invalid token endpoint URL"),
                 ),
             );
-            Self { oauth2_client }
+            Self {
+                http_client,
+                oauth2_client,
+            }
         }
 
         pub(super) async fn exchange_password(
             &self,
             username: &ResourceOwnerUsername,
             password: &ResourceOwnerPassword,
-        ) -> Result<OAuth2TokenResponse, OAuth2TokenError> {
+        ) -> anyhow::Result<OAuth2TokenResponse, OAuth2TokenError> {
             self.oauth2_client
                 .exchange_password(username, password)
-                .request_async(oauth2::reqwest::async_http_client)
+                .request_async(|request| self.async_http_client(request))
                 .await
         }
 
@@ -405,8 +420,55 @@ mod somfy_oauth2 {
         ) -> Result<OAuth2TokenResponse, OAuth2TokenError> {
             self.oauth2_client
                 .exchange_refresh_token(refresh_token)
-                .request_async(oauth2::reqwest::async_http_client)
+                .request_async(|request| self.async_http_client(request))
                 .await
+        }
+
+        async fn async_http_client(
+            &self,
+            request: HttpRequest,
+        ) -> Result<HttpResponse, oauth2::reqwest::Error<reqwest::Error>> {
+            let client = self.http_client.clone();
+
+            let method = http::Method::from_bytes(request.method.to_string().as_bytes())
+                .expect("a valid HTTP verb");
+
+            let mut request_builder = client
+                .request(method, request.url.as_str())
+                .body(request.body);
+            for (name, value) in &request.headers {
+                request_builder = request_builder.header(name.as_str(), value.as_bytes());
+            }
+            let request = request_builder
+                .build()
+                .map_err(oauth2::reqwest::Error::Reqwest)?;
+
+            let response = client.execute(request).await.map_err(|error| match error {
+                reqwest_middleware::Error::Middleware(error) => {
+                    oauth2::reqwest::Error::Other(error.to_string())
+                }
+                reqwest_middleware::Error::Reqwest(error) => oauth2::reqwest::Error::Reqwest(error),
+            })?;
+
+            let status_code = response.status();
+            let mut headers = oauth2::http::HeaderMap::new();
+            for (name, value) in response.headers() {
+                let name = oauth2::http::HeaderName::from_str(name.as_str())
+                    .expect("a valid HTTP header name");
+                let value = oauth2::http::HeaderValue::from_bytes(value.as_bytes())
+                    .expect("a valid HTTP header value");
+                headers.append(name, value);
+            }
+            let chunks = response
+                .bytes()
+                .await
+                .map_err(oauth2::reqwest::Error::Reqwest)?;
+            Ok(HttpResponse {
+                status_code: StatusCode::from_u16(status_code.as_u16())
+                    .expect("a valid HTTP status code"),
+                headers,
+                body: chunks.to_vec(),
+            })
         }
     }
 }

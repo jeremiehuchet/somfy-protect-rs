@@ -9,16 +9,21 @@
  */
 
 use crate::models;
+use serde::{Deserialize, Serialize};
 
+use serde_with::serde_as;
+
+#[serde_as]
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct NewPhoto {
     /// The photo encoded with base64.
+    #[serde_as(as = "serde_with::base64::Base64")]
     #[serde(rename = "base64_raw")]
-    pub base64_raw: String,
+    pub base64_raw: Vec<u8>,
 }
 
 impl NewPhoto {
-    pub fn new(base64_raw: String) -> NewPhoto {
+    pub fn new(base64_raw: Vec<u8>) -> NewPhoto {
         NewPhoto { base64_raw }
     }
 }
