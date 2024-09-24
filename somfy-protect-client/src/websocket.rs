@@ -53,7 +53,7 @@ impl SomfyWebsocketClientBuilder {
     )> {
         info!("Connecting to {}", self.url);
         let url = url::Url::parse_with_params(&self.url, &[("token", token.secret())])?;
-        let (ws_stream, _initial_message) = connect_async(url).await?;
+        let (ws_stream, _initial_message) = connect_async(url.as_str()).await?;
 
         let (write, read) = ws_stream.split();
 
