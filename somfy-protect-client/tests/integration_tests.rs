@@ -4,22 +4,30 @@ use somfy_protect_client::{
     client::{SomfyProtectClient, SomfyProtectClientBuilder},
     websocket::SomfyWebsocketClientBuilder,
 };
-use testcontainers_modules::testcontainers::{
-    core::WaitFor, runners::AsyncRunner, ContainerAsync, GenericImage,
+use testcontainers::{
+    core::{ContainerPort, WaitFor},
+    runners::AsyncRunner,
+    ContainerAsync, GenericImage,
 };
 
 async fn start_somfy_mock() -> ContainerAsync<GenericImage> {
     GenericImage::new("somfy-protect-api-mock", "latest")
-        .with_exposed_port(3000)
-        .with_wait_for(WaitFor::StdOutMessage {
-            message: String::from("Somfy Protect API mock listening on port 3000"),
-        })
+        .with_exposed_port(ContainerPort::Tcp(3000))
+        .with_wait_for(WaitFor::message_on_stdout(
+            "Somfy Protect API mock listening on port 3000",
+        ))
         .start()
         .await
+        .unwrap()
 }
 
 async fn client_for(container: &ContainerAsync<GenericImage>) -> SomfyProtectClient {
-    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    let listening_port = container
+        .ports()
+        .await
+        .unwrap()
+        .map_to_host_port_ipv4(3000)
+        .unwrap();
     SomfyProtectClientBuilder::default()
         .with_auth_base_url(format!("http://127.0.0.1:{listening_port}/auth",))
         .with_api_base_url(format!("http://127.0.0.1:{listening_port}/api",))
@@ -29,7 +37,12 @@ async fn client_for(container: &ContainerAsync<GenericImage>) -> SomfyProtectCli
 }
 
 async fn websocket_for(container: &ContainerAsync<GenericImage>) -> SomfyWebsocketClientBuilder {
-    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    let listening_port = container
+        .ports()
+        .await
+        .unwrap()
+        .map_to_host_port_ipv4(3000)
+        .unwrap();
     SomfyWebsocketClientBuilder::default()
         .with_url(format!("ws://127.0.0.1:{listening_port}/websocket"))
 }
@@ -39,7 +52,12 @@ async fn assert_mock_invocation_count(
     feature: &str,
     expected_count: u32,
 ) {
-    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    let listening_port = container
+        .ports()
+        .await
+        .unwrap()
+        .map_to_host_port_ipv4(3000)
+        .unwrap();
     let http_client = Client::builder().build().expect("an http client");
     let request = http_client
         .get(format!("http://127.0.0.1:{listening_port}/mock/{feature}"))
@@ -65,7 +83,12 @@ async fn given_websocket_server_will_send(
     container: &ContainerAsync<GenericImage>,
     messages: Vec<&str>,
 ) {
-    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    let listening_port = container
+        .ports()
+        .await
+        .unwrap()
+        .map_to_host_port_ipv4(3000)
+        .unwrap();
     let http_client = Client::builder().build().expect("an http client");
     let request = http_client
         .put(format!(
@@ -96,7 +119,12 @@ async fn assert_server_received_messages(
     container: &ContainerAsync<GenericImage>,
     expected_messages: Vec<String>,
 ) {
-    let listening_port = container.ports().await.map_to_host_port_ipv4(3000).unwrap();
+    let listening_port = container
+        .ports()
+        .await
+        .unwrap()
+        .map_to_host_port_ipv4(3000)
+        .unwrap();
     tokio::time::sleep(tokio::time::Duration::from_millis(200)).await;
     let http_client = Client::builder().build().expect("an http client");
     let request = http_client
