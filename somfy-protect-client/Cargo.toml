@@ -13,7 +13,7 @@ chrono = "0.4"
 futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
 http = "1.0"
 log = "0.4"
-oauth2 = "4.4"
+oauth2 = "5.0"
 reqwest = { version = "0.12", features = ["json"] }
 reqwest-middleware = "0.4"
 serde = "1.0"
